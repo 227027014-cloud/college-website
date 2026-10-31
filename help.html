@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SentinelX - Help & Support</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    background:#05080d;
+    color:#dce7f2;
+    font-family:Arial, sans-serif;
+}
+
+.navbar{
+    height:72px;
+    background:#070b11;
+    border-bottom:1px solid #182630;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 5%;
+}
+
+.logo{
+    font-size:20px;
+    font-weight:bold;
+    letter-spacing:3px;
+}
+
+.logo span{
+    color:#00e5ff;
+}
+
+.nav{
+    display:flex;
+    gap:25px;
+}
+
+.nav a{
+    color:#718493;
+    text-decoration:none;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+.nav a:hover,
+.nav .active{
+    color:#00e5ff;
+}
+
+.operator{
+    color:#62e6a8;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+.main{
+    padding:35px 5%;
+}
+
+.terminal{
+    color:#00e5ff;
+    font-size:10px;
+    letter-spacing:2px;
+    margin-bottom:10px;
+}
+
+h1{
+    font-size:32px;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    color:#697c8c;
+    font-size:12px;
+    margin-bottom:30px;
+}
+
+.panel{
+    background:#080d14;
+    border:1px solid #1b2c38;
+    margin-bottom:20px;
+}
+
+.panel-header{
+    padding:20px 25px;
+    border-bottom:1px solid #1b2c38;
+    color:#00e5ff;
+    font-size:12px;
+    letter-spacing:1px;
+}
+
+.faq-list{
+    padding:5px 25px;
+}
+
+.faq{
+    padding:20px 0;
+    border-bottom:1px solid #13212b;
+}
+
+.faq:last-child{
+    border-bottom:none;
+}
+
+.question{
+    color:#dce7f2;
+    font-size:12px;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+.answer{
+    color:#697c8c;
+    font-size:11px;
+    line-height:1.7;
+}
+
+.support-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.support-card{
+    background:#080d14;
+    border:1px solid #1b2c38;
+    padding:25px;
+}
+
+.icon{
+    color:#00e5ff;
+    font-size:24px;
+    margin-bottom:15px;
+}
+
+.support-card h3{
+    font-size:13px;
+    margin-bottom:8px;
+}
+
+.support-card p{
+    color:#697c8c;
+    font-size:10px;
+    line-height:1.6;
+    margin-bottom:15px;
+}
+
+.support-card button{
+    background:transparent;
+    border:1px solid #1b5362;
+    color:#00e5ff;
+    padding:9px 14px;
+    font-size:9px;
+    letter-spacing:1px;
+    cursor:pointer;
+}
+
+.support-card button:hover{
+    background:#00e5ff;
+    color:#05080d;
+}
+
+.status-panel{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.status-card{
+    background:#080d14;
+    border:1px solid #1b2c38;
+    padding:20px;
+}
+
+.status-title{
+    color:#697c8c;
+    font-size:9px;
+    letter-spacing:1px;
+    margin-bottom:10px;
+}
+
+.status-value{
+    color:#62e6a8;
+    font-size:13px;
+    font-weight:bold;
+}
+
+.footer{
+    margin-top:45px;
+    padding:20px 5%;
+    border-top:1px solid #182630;
+    color:#526572;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+@media(max-width:800px){
+
+    .nav{
+        display:none;
+    }
+
+    .support-grid,
+    .status-panel{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        🛡️ <span>SENTINELX</span>
+    </div>
+
+    <nav class="nav">
+        <a href="dashboard.html">COMMAND CENTER</a>
+        <a href="threats.html">THREATS</a>
+        <a href="network.html">NETWORK</a>
+        <a href="reports.html">REPORTS</a>
+        <a href="settings.html">SETTINGS</a>
+        <a href="help.html" class="active">HELP</a>
+    </nav>
+
+    <div class="operator">
+        ● OPERATOR ONLINE
+    </div>
+
+</header>
+
+
+<main class="main">
+
+    <div class="terminal">
+        SENTINELX // HELP & SUPPORT CENTER
+    </div>
+
+    <h1>Help & Support</h1>
+
+    <p class="subtitle">
+        Security operations guidance, system information and operator support.
+    </p>
+
+
+    <section class="panel">
+
+        <div class="panel-header">
+            FREQUENTLY ASKED QUESTIONS
+        </div>
+
+        <div class="faq-list">
+
+            <div class="faq">
+
+                <div class="question">
+                    How do I start a security scan?
+                </div>
+
+                <div class="answer">
+                    Open Security Scan from the security operations menu and
+                    select Start Security Scan to begin system analysis.
+                </div>
+
+            </div>
+
+
+            <div class="faq">
+
+                <div class="question">
+                    Where can I view detected threats?
+                </div>
+
+                <div class="answer">
+                    Open the Threat Intelligence Center to review detected
+                    threats, risk levels and attack pattern information.
+                </div>
+
+            </div>
+
+
+            <div class="faq">
+
+                <div class="question">
+                    How can I check network activity?
+                </div>
+
+                <div class="answer">
+                    Open the Network Monitor to view network traffic,
+                    monitored endpoints and network event activity.
+                </div>
+
+            </div>
+
+
+            <div class="faq">
+
+                <div class="question">
+                    Where can I view security reports?
+                </div>
+
+                <div class="answer">
+                    Open Security Reports to view generated reports,
+                    security analysis and system protection statistics.
+                </div>
+
+            </div>
+
+
+            <div class="faq">
+
+                <div class="question">
+                    How do I change security settings?
+                </div>
+
+                <div class="answer">
+                    Open Settings to manage monitoring, authentication,
+                    notifications and security configuration.
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="support-grid">
+
+        <div class="support-card">
+
+            <div class="icon">◉</div>
+
+            <h3>SECURITY OPERATIONS</h3>
+
+            <p>
+                Access command center guidance and monitor
+                the current security status of the system.
+            </p>
+
+            <button onclick="showSupport('Security Operations')">
+                OPEN GUIDE →
+            </button>
+
+        </div>
+
+
+        <div class="support-card">
+
+            <div class="icon">⚠</div>
+
+            <h3>THREAT RESPONSE</h3>
+
+            <p>
+                Review threat events and follow recommended
+                response procedures for security incidents.
+            </p>
+
+            <button onclick="showSupport('Threat Response')">
+                VIEW GUIDE →
+            </button>
+
+        </div>
+
+
+        <div class="support-card">
+
+            <div class="icon">?</div>
+
+            <h3>OPERATOR SUPPORT</h3>
+
+            <p>
+                Get assistance with SentinelX monitoring,
+                authentication and system operations.
+            </p>
+
+            <button onclick="showSupport('Operator Support')">
+                CONTACT SUPPORT →
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <section class="panel" style="margin-top:20px;">
+
+        <div class="panel-header">
+            SENTINELX SYSTEM STATUS
+        </div>
+
+        <div class="status-panel" style="padding:20px;">
+
+            <div class="status-card">
+
+                <div class="status-title">
+                    SECURITY ENGINE
+                </div>
+
+                <div class="status-value">
+                    ● OPERATIONAL
+                </div>
+
+            </div>
+
+
+            <div class="status-card">
+
+                <div class="status-title">
+                    MONITORING SERVICE
+                </div>
+
+                <div class="status-value">
+                    ● ACTIVE
+                </div>
+
+            </div>
+
+
+            <div class="status-card">
+
+                <div class="status-title">
+                    SUPPORT NODE
+                </div>
+
+                <div class="status-value">
+                    ● ONLINE
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="footer">
+    SOC NODE SX-01 • SUPPORT SYSTEM ACTIVE
+</footer>
+
+
+<script>
+
+function showSupport(type){
+
+    alert(
+        "SENTINELX SUPPORT\n\n" +
+        type +
+        " guide opened.\n\n" +
+        "Support Node: SX-SUPPORT-01\n" +
+        "Status: ONLINE"
+    );
+
+}
+
+</script>
+
+</body>
+</html>

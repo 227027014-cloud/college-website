@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SentinelX - Operator Profile</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    background:#05080d;
+    color:#dce7f2;
+    font-family:Arial, sans-serif;
+}
+
+.navbar{
+    height:72px;
+    background:#070b11;
+    border-bottom:1px solid #182630;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 5%;
+}
+
+.logo{
+    font-size:20px;
+    font-weight:bold;
+    letter-spacing:3px;
+}
+
+.logo span{
+    color:#00e5ff;
+}
+
+.nav{
+    display:flex;
+    gap:25px;
+}
+
+.nav a{
+    color:#718493;
+    text-decoration:none;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+.nav a:hover,
+.nav .active{
+    color:#00e5ff;
+}
+
+.operator{
+    color:#62e6a8;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+.main{
+    padding:35px 5%;
+}
+
+.terminal{
+    color:#00e5ff;
+    font-size:10px;
+    letter-spacing:2px;
+    margin-bottom:10px;
+}
+
+h1{
+    font-size:32px;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    color:#697c8c;
+    font-size:12px;
+    margin-bottom:30px;
+}
+
+.profile-grid{
+    display:grid;
+    grid-template-columns:1fr 2fr;
+    gap:20px;
+}
+
+.panel{
+    background:#080d14;
+    border:1px solid #1b2c38;
+}
+
+.panel-header{
+    padding:20px 25px;
+    border-bottom:1px solid #1b2c38;
+    color:#00e5ff;
+    font-size:12px;
+    letter-spacing:1px;
+}
+
+.profile-card{
+    padding:30px;
+    text-align:center;
+}
+
+.avatar{
+    width:90px;
+    height:90px;
+    margin:0 auto 20px;
+    border:1px solid #00e5ff;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:34px;
+    color:#00e5ff;
+}
+
+.profile-card h2{
+    font-size:20px;
+    margin-bottom:7px;
+}
+
+.role{
+    color:#62e6a8;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+.status{
+    margin-top:20px;
+    padding:10px;
+    border:1px solid #1b2c38;
+    color:#62e6a8;
+    font-size:10px;
+}
+
+.details{
+    padding:25px;
+}
+
+.detail-row{
+    display:grid;
+    grid-template-columns:180px 1fr;
+    padding:15px 0;
+    border-bottom:1px solid #13212b;
+}
+
+.label{
+    color:#697c8c;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+.value{
+    font-size:12px;
+}
+
+.access{
+    color:#62e6a8;
+}
+
+.activity{
+    margin-top:20px;
+}
+
+.activity-list{
+    padding:20px 25px;
+}
+
+.activity-row{
+    display:flex;
+    justify-content:space-between;
+    padding:14px 0;
+    border-bottom:1px solid #13212b;
+    font-size:11px;
+}
+
+.activity-row span:first-child{
+    color:#dce7f2;
+}
+
+.time{
+    color:#697c8c;
+}
+
+.footer{
+    margin-top:45px;
+    padding:20px 5%;
+    border-top:1px solid #182630;
+    color:#526572;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+@media(max-width:800px){
+    .nav{
+        display:none;
+    }
+
+    .profile-grid{
+        grid-template-columns:1fr;
+    }
+
+    .detail-row{
+        grid-template-columns:1fr;
+        gap:7px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        🛡️ <span>SENTINELX</span>
+    </div>
+
+    <nav class="nav">
+        <a href="dashboard.html">COMMAND CENTER</a>
+        <a href="threats.html">THREATS</a>
+        <a href="network.html">NETWORK</a>
+        <a href="reports.html">REPORTS</a>
+        <a href="settings.html">SETTINGS</a>
+        <a href="profile.html" class="active">PROFILE</a>
+    </nav>
+
+    <div class="operator">
+        ● OPERATOR ONLINE
+    </div>
+
+</header>
+
+
+<main class="main">
+
+    <div class="terminal">
+        SENTINELX // OPERATOR PROFILE
+    </div>
+
+    <h1>Operator Profile</h1>
+
+    <p class="subtitle">
+        Security operator identity, access level and activity information.
+    </p>
+
+
+    <section class="profile-grid">
+
+        <div class="panel">
+
+            <div class="panel-header">
+                OPERATOR IDENTITY
+            </div>
+
+            <div class="profile-card">
+
+                <div class="avatar">
+                    ◉
+                </div>
+
+                <h2 id="operatorName">
+                    Security Operator
+                </h2>
+
+                <div class="role">
+                    SECURITY OPERATOR
+                </div>
+
+                <div class="status">
+                    ● ACTIVE / AUTHENTICATED
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="panel">
+
+            <div class="panel-header">
+                OPERATOR INFORMATION
+            </div>
+
+            <div class="details">
+
+                <div class="detail-row">
+                    <div class="label">OPERATOR ID</div>
+                    <div class="value" id="operatorId">SX-OPERATOR</div>
+                </div>
+
+                <div class="detail-row">
+                    <div class="label">EMAIL</div>
+                    <div class="value" id="operatorEmail">
+                        operator@sentinelx.local
+                    </div>
+                </div>
+
+                <div class="detail-row">
+                    <div class="label">ACCESS LEVEL</div>
+                    <div class="value access">
+                        OPERATOR / MONITORING
+                    </div>
+                </div>
+
+                <div class="detail-row">
+                    <div class="label">AUTHENTICATION</div>
+                    <div class="value access">
+                        SECURE
+                    </div>
+                </div>
+
+                <div class="detail-row">
+                    <div class="label">SESSION STATUS</div>
+                    <div class="value access">
+                        ACTIVE
+                    </div>
+                </div>
+
+                <div class="detail-row">
+                    <div class="label">SECURITY NODE</div>
+                    <div class="value">
+                        SOC-NODE-SX-01
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="panel activity">
+
+        <div class="panel-header">
+            RECENT OPERATOR ACTIVITY
+        </div>
+
+        <div class="activity-list">
+
+            <div class="activity-row">
+                <span>Security Command Center accessed</span>
+                <span class="time">02 MIN AGO</span>
+            </div>
+
+            <div class="activity-row">
+                <span>Threat intelligence reviewed</span>
+                <span class="time">15 MIN AGO</span>
+            </div>
+
+            <div class="activity-row">
+                <span>Network security scan initiated</span>
+                <span class="time">32 MIN AGO</span>
+            </div>
+
+            <div class="activity-row">
+                <span>Security configuration updated</span>
+                <span class="time">01 HR AGO</span>
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="footer">
+    SOC NODE SX-01 • OPERATOR PROFILE ACTIVE
+</footer>
+
+
+<script>
+
+const name = localStorage.getItem("operatorName");
+const id = localStorage.getItem("operatorId");
+const email = localStorage.getItem("operatorEmail");
+
+if(name){
+    document.getElementById("operatorName").textContent = name;
+}
+
+if(id){
+    document.getElementById("operatorId").textContent = id;
+}
+
+if(email){
+    document.getElementById("operatorEmail").textContent = email;
+}
+
+</script>
+
+</body>
+</html>

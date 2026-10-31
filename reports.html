@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SentinelX | Security Reports</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#05080d;
+    color:#dce7f2;
+    font-family:Arial, sans-serif;
+}
+
+.navbar{
+    height:72px;
+    padding:0 5%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:#070b11;
+    border-bottom:1px solid #182630;
+}
+
+.logo{
+    font-size:20px;
+    font-weight:bold;
+    letter-spacing:3px;
+}
+
+.logo span{
+    color:#00e5ff;
+}
+
+.nav-links{
+    display:flex;
+    gap:24px;
+}
+
+.nav-links a{
+    color:#718394;
+    text-decoration:none;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+.nav-links a:hover,
+.nav-links .active{
+    color:#00e5ff;
+}
+
+.operator{
+    color:#62e6a8;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+main{
+    padding:35px 5%;
+}
+
+.heading{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    margin-bottom:30px;
+}
+
+.terminal{
+    color:#00e5ff;
+    font-size:10px;
+    letter-spacing:2px;
+    margin-bottom:10px;
+}
+
+h1{
+    font-size:32px;
+}
+
+.heading p{
+    color:#697c8c;
+    font-size:12px;
+    margin-top:8px;
+}
+
+.live{
+    color:#62e6a8;
+    font-size:10px;
+}
+
+/* SUMMARY */
+
+.summary{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.summary-card{
+    background:#080d14;
+    border:1px solid #1b2c38;
+    padding:20px;
+}
+
+.summary-card small{
+    color:#617487;
+    font-size:9px;
+    letter-spacing:1.5px;
+}
+
+.summary-card h2{
+    margin-top:14px;
+    font-size:28px;
+}
+
+.cyan{
+    color:#00e5ff;
+}
+
+.safe{
+    color:#62e6a8;
+}
+
+.warning{
+    color:#ffc857;
+}
+
+.critical{
+    color:#ff5c5c;
+}
+
+/* PANEL */
+
+.panel{
+    background:#080d14;
+    border:1px solid #1b2c38;
+    margin-bottom:25px;
+}
+
+.panel-header{
+    padding:22px 25px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid #1b2c38;
+}
+
+.panel-header h2{
+    font-size:17px;
+}
+
+.panel-header span{
+    color:#607385;
+    font-size:9px;
+    letter-spacing:1px;
+}
+
+/* REPORT ROW */
+
+.report{
+    display:grid;
+    grid-template-columns:120px 1fr 130px 110px;
+    gap:15px;
+    align-items:center;
+    padding:20px 25px;
+    border-bottom:1px solid #182630;
+}
+
+.report:last-child{
+    border-bottom:none;
+}
+
+.report-date{
+    color:#536777;
+    font-size:10px;
+}
+
+.report-name{
+    font-size:13px;
+    color:#cbd8e2;
+}
+
+.report-name small{
+    display:block;
+    color:#5f7282;
+    font-size:9px;
+    margin-top:6px;
+}
+
+.report-type{
+    color:#718394;
+    font-size:9px;
+}
+
+.status{
+    text-align:right;
+    font-size:9px;
+    letter-spacing:1px;
+}
+
+.complete{
+    color:#62e6a8;
+}
+
+.review{
+    color:#ffc857;
+}
+
+.report-btn{
+    background:transparent;
+    border:1px solid #2b3e4b;
+    color:#8394a3;
+    padding:7px 10px;
+    font-size:9px;
+    cursor:pointer;
+}
+
+.report-btn:hover{
+    border-color:#00e5ff;
+    color:#00e5ff;
+}
+
+/* SECURITY OVERVIEW */
+
+.overview{
+    padding:25px;
+}
+
+.overview-row{
+    margin-bottom:22px;
+}
+
+.overview-info{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:8px;
+}
+
+.overview-info span{
+    color:#8294a3;
+    font-size:10px;
+}
+
+.overview-info span:last-child{
+    color:#00e5ff;
+}
+
+.bar{
+    height:6px;
+    background:#101a22;
+}
+
+.bar div{
+    height:100%;
+    background:#00e5ff;
+}
+
+/* FOOTER */
+
+footer{
+    margin-top:25px;
+    padding:25px 5%;
+    border-top:1px solid #182630;
+    color:#536676;
+    font-size:10px;
+    display:flex;
+    justify-content:space-between;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+    .nav-links{
+        display:none;
+    }
+
+    .summary{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .report{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .status{
+        text-align:left;
+    }
+}
+
+@media(max-width:550px){
+
+    .summary{
+        grid-template-columns:1fr;
+    }
+
+    .heading{
+        display:block;
+    }
+
+    .live{
+        display:block;
+        margin-top:15px;
+    }
+
+    .report{
+        grid-template-columns:1fr;
+    }
+
+    .status{
+        text-align:left;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<nav class="navbar">
+
+    <div class="logo">
+        🛡️ SENTINEL<span>X</span>
+    </div>
+
+    <div class="nav-links">
+        <a href="dashboard.html">COMMAND CENTER</a>
+        <a href="alerts.html">THREATS</a>
+        <a href="network.html">NETWORK</a>
+        <a href="reports.html" class="active">REPORTS</a>
+    </div>
+
+    <div class="operator">
+        ● MONITORING
+    </div>
+
+</nav>
+
+</header>
+
+
+<main>
+
+<section class="heading">
+
+    <div>
+
+        <div class="terminal">
+            SENTINELX // SECURITY REPORTING
+        </div>
+
+        <h1>Security Reports</h1>
+
+        <p>
+            Security analysis reports and system activity summaries.
+        </p>
+
+    </div>
+
+    <div class="live">
+        ● REPORT ENGINE ACTIVE
+    </div>
+
+</section>
+
+
+<!-- SUMMARY -->
+
+<section class="summary">
+
+    <div class="summary-card">
+        <small>TOTAL REPORTS</small>
+        <h2 class="cyan">28</h2>
+    </div>
+
+    <div class="summary-card">
+        <small>GENERATED TODAY</small>
+        <h2 class="safe">06</h2>
+    </div>
+
+    <div class="summary-card">
+        <small>UNDER REVIEW</small>
+        <h2 class="warning">03</h2>
+    </div>
+
+    <div class="summary-card">
+        <small>CRITICAL EVENTS</small>
+        <h2 class="critical">01</h2>
+    </div>
+
+</section>
+
+
+<!-- REPORT LIST -->
+
+<section class="panel">
+
+    <div class="panel-header">
+        <h2>Generated Security Reports</h2>
+        <span>REPORT STREAM // ACTIVE</span>
+    </div>
+
+
+    <div class="report">
+
+        <div class="report-date">
+            08 OCT 2026
+        </div>
+
+        <div class="report-name">
+            Daily Security Summary
+            <small>SX-REPORT-028 • SYSTEM-WIDE ANALYSIS</small>
+        </div>
+
+        <div class="report-type">
+            DAILY REPORT
+        </div>
+
+        <div class="status complete">
+            ● COMPLETE
+        </div>
+
+    </div>
+
+
+    <div class="report">
+
+        <div class="report-date">
+            08 OCT 2026
+        </div>
+
+        <div class="report-name">
+            Network Activity Report
+            <small>SX-REPORT-027 • NETWORK TELEMETRY</small>
+        </div>
+
+        <div class="report-type">
+            NETWORK
+        </div>
+
+        <div class="status complete">
+            ● COMPLETE
+        </div>
+
+    </div>
+
+
+    <div class="report">
+
+        <div class="report-date">
+            08 OCT 2026
+        </div>
+
+        <div class="report-name">
+            Threat Detection Analysis
+            <small>SX-REPORT-026 • THREAT ENGINE</small>
+        </div>
+
+        <div class="report-type">
+            THREAT
+        </div>
+
+        <div class="status review">
+            ● REVIEW
+        </div>
+
+    </div>
+
+
+    <div class="report">
+
+        <div class="report-date">
+            07 OCT 2026
+        </div>
+
+        <div class="report-name">
+            Endpoint Security Report
+            <small>SX-REPORT-025 • 24 ENDPOINTS</small>
+        </div>
+
+        <div class="report-type">
+            ENDPOINT
+        </div>
+
+        <div class="status complete">
+            ● COMPLETE
+        </div>
+
+    </div>
+
+
+    <div class="report">
+
+        <div class="report-date">
+            07 OCT 2026
+        </div>
+
+        <div class="report-name">
+            Firewall Activity Report
+            <small>SX-REPORT-024 • FIREWALL EVENTS</small>
+        </div>
+
+        <div class="report-type">
+            FIREWALL
+        </div>
+
+        <div class="status complete">
+            ● COMPLETE
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- SECURITY OVERVIEW -->
+
+<section class="panel">
+
+    <div class="panel-header">
+
+        <h2>Security Overview</h2>
+
+        <span>ANALYSIS // CURRENT PERIOD</span>
+
+    </div>
+
+
+    <div class="overview">
+
+        <div class="overview-row">
+
+            <div class="overview-info">
+                <span>Threat Detection</span>
+                <span>94%</span>
+            </div>
+
+            <div class="bar">
+                <div style="width:94%"></div>
+            </div>
+
+        </div>
+
+
+        <div class="overview-row">
+
+            <div class="overview-info">
+                <span>Network Protection</span>
+                <span>98%</span>
+            </div>
+
+            <div class="bar">
+                <div style="width:98%"></div>
+            </div>
+
+        </div>
+
+
+        <div class="overview-row">
+
+            <div class="overview-info">
+                <span>Endpoint Security</span>
+                <span>91%</span>
+            </div>
+
+            <div class="bar">
+                <div style="width:91%"></div>
+            </div>
+
+        </div>
+
+
+        <div class="overview-row">
+
+            <div class="overview-info">
+                <span>Firewall Protection</span>
+                <span>97%</span>
+            </div>
+
+            <div class="bar">
+                <div style="width:97%"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- RECENT ACTIVITY -->
+
+<section class="panel">
+
+    <div class="panel-header">
+        <h2>Report Activity</h2>
+        <span>SYSTEM LOG</span>
+    </div>
+
+
+    <div class="report">
+
+        <div class="report-date">
+            10:48:21
+        </div>
+
+        <div class="report-name">
+            Daily security report generated
+            <small>REPORT ENGINE • AUTOMATED</small>
+        </div>
+
+        <div class="report-type">
+            SYSTEM
+        </div>
+
+        <div class="status complete">
+            COMPLETE
+        </div>
+
+    </div>
+
+
+    <div class="report">
+
+        <div class="report-date">
+            10:32:09
+        </div>
+
+        <div class="report-name">
+            Network analysis report updated
+            <small>NETWORK ENGINE • TELEMETRY</small>
+        </div>
+
+        <div class="report-type">
+            NETWORK
+        </div>
+
+        <div class="status complete">
+            COMPLETE
+        </div>
+
+    </div>
+
+
+    <div class="report">
+
+        <div class="report-date">
+            09:57:44
+        </div>
+
+        <div class="report-name">
+            Threat analysis requires review
+            <small>THREAT ENGINE • EVENT SX-026</small>
+        </div>
+
+        <div class="report-type">
+            THREAT
+        </div>
+
+        <div class="status review">
+            REVIEW
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+    <span>SENTINELX SECURITY OPERATIONS</span>
+
+    <span>
+        SOC NODE: SX-01 • REPORT ENGINE ACTIVE
+    </span>
+
+</footer>
+
+
+<script>
+
+function generateReport(){
+
+    alert(
+        "SECURITY REPORT\n\n" +
+        "Report generated successfully.\n\n" +
+        "Status: COMPLETE"
+    );
+
+}
+
+</script>
+
+</body>
+</html>

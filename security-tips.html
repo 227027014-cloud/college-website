@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SentinelX | Security Tips</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    background:#05080d;
+    color:#dce7f2;
+    font-family:Arial,sans-serif;
+}
+
+.navbar{
+    height:72px;
+    background:#070b11;
+    border-bottom:1px solid #182630;
+    display:flex;
+    align-items:center;
+    padding:0 5%;
+}
+
+.logo{
+    font-size:20px;
+    font-weight:bold;
+    letter-spacing:3px;
+}
+
+.nav{
+    display:flex;
+    gap:28px;
+    margin-left:auto;
+}
+
+.nav a{
+    color:#697c8c;
+    text-decoration:none;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+.nav a:hover,
+.nav .active{
+    color:#00e5ff;
+}
+
+.operator{
+    margin-left:35px;
+    color:#62e6a8;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+main{
+    padding:35px 5%;
+}
+
+.terminal{
+    color:#00e5ff;
+    font-size:10px;
+    letter-spacing:2px;
+    margin-bottom:10px;
+}
+
+h1{
+    font-size:32px;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    color:#697c8c;
+    font-size:12px;
+    margin-bottom:30px;
+}
+
+.tips-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+    margin-bottom:25px;
+}
+
+.tip-card{
+    background:#080d14;
+    border:1px solid #1b2c38;
+    padding:25px;
+    transition:.2s;
+}
+
+.tip-card:hover{
+    border-color:#00e5ff;
+    transform:translateY(-3px);
+}
+
+.icon{
+    font-size:25px;
+    margin-bottom:18px;
+}
+
+.tip-number{
+    color:#00e5ff;
+    font-size:9px;
+    letter-spacing:2px;
+    margin-bottom:8px;
+}
+
+.tip-card h2{
+    font-size:14px;
+    margin-bottom:10px;
+}
+
+.tip-card p{
+    color:#697c8c;
+    font-size:10px;
+    line-height:1.8;
+}
+
+.checklist{
+    background:#080d14;
+    border:1px solid #1b2c38;
+}
+
+.panel-header{
+    padding:20px 25px;
+    border-bottom:1px solid #1b2c38;
+}
+
+.panel-header h2{
+    font-size:14px;
+    letter-spacing:1px;
+}
+
+.panel-header p{
+    color:#697c8c;
+    font-size:10px;
+    margin-top:6px;
+}
+
+.check-row{
+    padding:17px 25px;
+    border-bottom:1px solid #14212b;
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.check-row:last-child{
+    border-bottom:none;
+}
+
+.check{
+    width:18px;
+    height:18px;
+    border:1px solid #00e5ff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#62e6a8;
+    font-size:11px;
+    cursor:pointer;
+}
+
+.check.done{
+    background:#0d2420;
+}
+
+.check-text{
+    font-size:11px;
+}
+
+.check-status{
+    margin-left:auto;
+    color:#697c8c;
+    font-size:9px;
+    letter-spacing:1px;
+}
+
+.score-panel{
+    margin-top:20px;
+    background:#080d14;
+    border:1px solid #1b2c38;
+    padding:25px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.score-title{
+    font-size:12px;
+    margin-bottom:7px;
+}
+
+.score-description{
+    color:#697c8c;
+    font-size:10px;
+}
+
+.score{
+    color:#62e6a8;
+    font-size:30px;
+    font-weight:bold;
+}
+
+.footer{
+    margin-top:45px;
+    padding:20px 5%;
+    border-top:1px solid #182630;
+    color:#4e6574;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+@media(max-width:850px){
+    .nav{
+        display:none;
+    }
+
+    .operator{
+        margin-left:auto;
+    }
+
+    .tips-grid{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:550px){
+    .tips-grid{
+        grid-template-columns:1fr;
+    }
+
+    .score-panel{
+        display:block;
+    }
+
+    .score{
+        margin-top:15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <div class="logo">🛡 SENTINELX</div>
+
+    <div class="nav">
+        <a href="dashboard.html">COMMAND CENTER</a>
+        <a href="threats.html">THREATS</a>
+        <a href="network.html">NETWORK</a>
+        <a href="reports.html">REPORTS</a>
+        <a href="settings.html">SETTINGS</a>
+    </div>
+
+    <div class="operator">● OPERATOR ONLINE</div>
+
+</div>
+
+<main>
+
+    <div class="terminal">
+        SENTINELX // SECURITY AWARENESS
+    </div>
+
+    <h1>Security Tips</h1>
+
+    <p class="subtitle">
+        Essential security practices for safer digital operations.
+    </p>
+
+
+    <div class="tips-grid">
+
+        <div class="tip-card">
+
+            <div class="icon">🔐</div>
+
+            <div class="tip-number">TIP 01 // ACCESS</div>
+
+            <h2>Use Strong Passwords</h2>
+
+            <p>
+                Use long and unique passwords for every important account.
+                Avoid predictable information such as names or birthdays.
+            </p>
+
+        </div>
+
+
+        <div class="tip-card">
+
+            <div class="icon">🛡</div>
+
+            <div class="tip-number">TIP 02 // PROTECTION</div>
+
+            <h2>Enable Multi-Factor Authentication</h2>
+
+            <p>
+                Add an additional verification layer to protect accounts
+                even when a password is compromised.
+            </p>
+
+        </div>
+
+
+        <div class="tip-card">
+
+            <div class="icon">🌐</div>
+
+            <div class="tip-number">TIP 03 // NETWORK</div>
+
+            <h2>Secure Network Connections</h2>
+
+            <p>
+                Avoid unknown networks and verify secure connections before
+                sending sensitive information.
+            </p>
+
+        </div>
+
+
+        <div class="tip-card">
+
+            <div class="icon">⚠</div>
+
+            <div class="tip-number">TIP 04 // PHISHING</div>
+
+            <h2>Detect Suspicious Messages</h2>
+
+            <p>
+                Check links, senders and attachments carefully before
+                opening unexpected emails or messages.
+            </p>
+
+        </div>
+
+
+        <div class="tip-card">
+
+            <div class="icon">⚙</div>
+
+            <div class="tip-number">TIP 05 // UPDATES</div>
+
+            <h2>Keep Systems Updated</h2>
+
+            <p>
+                Install security updates regularly to reduce exposure to
+                known vulnerabilities.
+            </p>
+
+        </div>
+
+
+        <div class="tip-card">
+
+            <div class="icon">💾</div>
+
+            <div class="tip-number">TIP 06 // RECOVERY</div>
+
+            <h2>Maintain Secure Backups</h2>
+
+            <p>
+                Keep important data backed up so it can be recovered after
+                accidental loss or a security incident.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="checklist">
+
+        <div class="panel-header">
+            <h2>SECURITY CHECKLIST</h2>
+            <p>Complete the recommended security practices</p>
+        </div>
+
+
+        <div class="check-row">
+
+            <div class="check" onclick="completeCheck(this)">✓</div>
+
+            <div class="check-text">
+                Strong password configured
+            </div>
+
+            <div class="check-status">
+                RECOMMENDED
+            </div>
+
+        </div>
+
+
+        <div class="check-row">
+
+            <div class="check" onclick="completeCheck(this)">✓</div>
+
+            <div class="check-text">
+                Multi-factor authentication enabled
+            </div>
+
+            <div class="check-status">
+                RECOMMENDED
+            </div>
+
+        </div>
+
+
+        <div class="check-row">
+
+            <div class="check" onclick="completeCheck(this)">✓</div>
+
+            <div class="check-text">
+                Operating system security updates installed
+            </div>
+
+            <div class="check-status">
+                RECOMMENDED
+            </div>
+
+        </div>
+
+
+        <div class="check-row">
+
+            <div class="check" onclick="completeCheck(this)">✓</div>
+
+            <div class="check-text">
+                Important files securely backed up
+            </div>
+
+            <div class="check-status">
+                RECOMMENDED
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="score-panel">
+
+        <div>
+            <div class="score-title">
+                SECURITY AWARENESS STATUS
+            </div>
+
+            <div class="score-description">
+                Follow the recommended practices to improve your security posture.
+            </div>
+        </div>
+
+        <div class="score">
+            HIGH
+        </div>
+
+    </div>
+
+</main>
+
+
+<div class="footer">
+    SENTINELX SOC NODE SX-01 • SECURITY AWARENESS ACTIVE
+</div>
+
+
+<script>
+
+function completeCheck(element){
+
+    element.classList.toggle("done");
+
+    if(element.classList.contains("done")){
+        alert("✓ Security practice marked as completed!");
+    }
+
+}
+
+</script>
+
+</body>
+</html>

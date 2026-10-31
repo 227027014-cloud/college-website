@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SentinelX | Security Scan</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    background:#05080d;
+    color:#dce7f2;
+    font-family:Arial,sans-serif;
+}
+
+.navbar{
+    height:72px;
+    background:#070b11;
+    border-bottom:1px solid #182630;
+    display:flex;
+    align-items:center;
+    padding:0 5%;
+}
+
+.logo{
+    font-size:20px;
+    font-weight:bold;
+    letter-spacing:3px;
+}
+
+.nav{
+    display:flex;
+    gap:28px;
+    margin-left:auto;
+}
+
+.nav a{
+    color:#697c8c;
+    text-decoration:none;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+.nav a:hover,
+.nav .active{
+    color:#00e5ff;
+}
+
+.operator{
+    margin-left:35px;
+    color:#62e6a8;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+main{
+    padding:35px 5%;
+}
+
+.terminal{
+    color:#00e5ff;
+    font-size:10px;
+    letter-spacing:2px;
+    margin-bottom:10px;
+}
+
+h1{
+    font-size:32px;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    color:#697c8c;
+    font-size:12px;
+    margin-bottom:30px;
+}
+
+.scan-layout{
+    display:grid;
+    grid-template-columns:1.4fr 1fr;
+    gap:20px;
+}
+
+.panel{
+    background:#080d14;
+    border:1px solid #1b2c38;
+}
+
+.panel-header{
+    padding:20px 25px;
+    border-bottom:1px solid #1b2c38;
+}
+
+.panel-header h2{
+    font-size:14px;
+    letter-spacing:1px;
+}
+
+.panel-header p{
+    color:#697c8c;
+    font-size:10px;
+    margin-top:6px;
+}
+
+.scan-box{
+    padding:35px;
+    text-align:center;
+}
+
+.scan-circle{
+    width:170px;
+    height:170px;
+    border:2px solid #00e5ff;
+    border-radius:50%;
+    margin:10px auto 25px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 0 35px rgba(0,229,255,.08);
+}
+
+.scan-icon{
+    font-size:35px;
+    margin-bottom:8px;
+}
+
+.scan-status{
+    color:#62e6a8;
+    font-size:10px;
+    letter-spacing:2px;
+}
+
+.scan-info{
+    color:#697c8c;
+    font-size:10px;
+    line-height:2;
+}
+
+button{
+    margin-top:20px;
+    background:#00e5ff;
+    color:#05080d;
+    border:none;
+    padding:13px 25px;
+    font-size:10px;
+    font-weight:bold;
+    letter-spacing:1px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#62e6a8;
+}
+
+.check-list{
+    padding:10px 25px;
+}
+
+.check-row{
+    padding:18px 0;
+    border-bottom:1px solid #14212b;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.check-row:last-child{
+    border-bottom:none;
+}
+
+.check-name{
+    font-size:11px;
+}
+
+.check-description{
+    color:#697c8c;
+    font-size:9px;
+    margin-top:5px;
+}
+
+.status{
+    color:#62e6a8;
+    font-size:9px;
+    letter-spacing:1px;
+}
+
+.status.pending{
+    color:#ffbd5c;
+}
+
+.summary{
+    grid-column:1 / -1;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.card{
+    background:#080d14;
+    border:1px solid #1b2c38;
+    padding:20px;
+}
+
+.card-title{
+    color:#697c8c;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+.card-value{
+    font-size:25px;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.cyan{
+    color:#00e5ff;
+}
+
+.green{
+    color:#62e6a8;
+}
+
+.orange{
+    color:#ffbd5c;
+}
+
+.footer{
+    margin-top:45px;
+    padding:20px 5%;
+    border-top:1px solid #182630;
+    color:#4e6574;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+@media(max-width:850px){
+    .nav{
+        display:none;
+    }
+
+    .operator{
+        margin-left:auto;
+    }
+
+    .scan-layout{
+        grid-template-columns:1fr;
+    }
+
+    .summary{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:500px){
+    .summary{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <div class="logo">🛡 SENTINELX</div>
+
+    <div class="nav">
+        <a href="dashboard.html">COMMAND CENTER</a>
+        <a href="threats.html">THREATS</a>
+        <a href="network.html">NETWORK</a>
+        <a href="reports.html">REPORTS</a>
+        <a href="settings.html">SETTINGS</a>
+    </div>
+
+    <div class="operator">● OPERATOR ONLINE</div>
+
+</div>
+
+<main>
+
+    <div class="terminal">
+        SENTINELX // SECURITY SCANNER
+    </div>
+
+    <h1>Security Scan</h1>
+
+    <p class="subtitle">
+        Perform a complete security assessment of monitored systems and endpoints.
+    </p>
+
+    <div class="scan-layout">
+
+        <div class="panel">
+
+            <div class="panel-header">
+                <h2>SYSTEM SECURITY SCANNER</h2>
+                <p>Full infrastructure security assessment</p>
+            </div>
+
+            <div class="scan-box">
+
+                <div class="scan-circle">
+                    <div class="scan-icon">⌁</div>
+                    <div class="scan-status">READY</div>
+                </div>
+
+                <div class="scan-info">
+                    SCAN ENGINE: SX-SCAN-01<br>
+                    TARGETS: 24 ENDPOINTS<br>
+                    MODE: FULL SYSTEM SCAN<br>
+                    LAST SCAN: 02 HOURS AGO
+                </div>
+
+                <button onclick="startScan()">
+                    START SECURITY SCAN →
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="panel">
+
+            <div class="panel-header">
+                <h2>SCAN MODULES</h2>
+                <p>Security inspection modules</p>
+            </div>
+
+            <div class="check-list">
+
+                <div class="check-row">
+                    <div>
+                        <div class="check-name">Firewall Inspection</div>
+                        <div class="check-description">
+                            Analyze firewall configuration
+                        </div>
+                    </div>
+                    <div class="status">READY</div>
+                </div>
+
+                <div class="check-row">
+                    <div>
+                        <div class="check-name">Network Vulnerability</div>
+                        <div class="check-description">
+                            Detect exposed network services
+                        </div>
+                    </div>
+                    <div class="status">READY</div>
+                </div>
+
+                <div class="check-row">
+                    <div>
+                        <div class="check-name">Endpoint Security</div>
+                        <div class="check-description">
+                            Check endpoint protection
+                        </div>
+                    </div>
+                    <div class="status">READY</div>
+                </div>
+
+                <div class="check-row">
+                    <div>
+                        <div class="check-name">Authentication Audit</div>
+                        <div class="check-description">
+                            Review authentication security
+                        </div>
+                    </div>
+                    <div class="status">READY</div>
+                </div>
+
+                <div class="check-row">
+                    <div>
+                        <div class="check-name">Threat Detection</div>
+                        <div class="check-description">
+                            Search for suspicious patterns
+                        </div>
+                    </div>
+                    <div class="status pending">QUEUED</div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="summary">
+
+            <div class="card">
+                <div class="card-title">SYSTEMS READY</div>
+                <div class="card-value cyan">24</div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">MODULES</div>
+                <div class="card-value green">05</div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">LAST SCAN</div>
+                <div class="card-value orange">02H</div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">SCAN STATUS</div>
+                <div class="card-value green">READY</div>
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+<div class="footer">
+    SENTINELX SOC NODE SX-01 • SECURITY SCANNER READY
+</div>
+
+<script>
+function startScan(){
+    alert("✓ Security Scan Started!\n\nScanning 24 endpoints...\n\nFirewall Inspection\nNetwork Vulnerability\nEndpoint Security\nAuthentication Audit\nThreat Detection");
+
+    window.location.href = "scan-results.html";
+}
+</script>
+
+</body>
+</html>

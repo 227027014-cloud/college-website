@@ -1,0 +1,396 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #05080d;
+    color: #dce7f2;
+    font-family: Arial, sans-serif;
+}
+
+/* NAVBAR */
+
+.navbar {
+    height: 75px;
+    padding: 0 6%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #17232f;
+    background: #070b11;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.logo span {
+    color: #00e5ff;
+}
+
+.system-status {
+    font-size: 11px;
+    color: #61e6a8;
+    letter-spacing: 1px;
+}
+
+.status-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    background: #61e6a8;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+}
+
+.nav-links a {
+    color: #8495a7;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.nav-links a:hover {
+    color: #00e5ff;
+}
+
+
+/* SECURITY BAR */
+
+.security-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-bottom: 1px solid #17232f;
+}
+
+.security-bar div {
+    padding: 22px 35px;
+    border-right: 1px solid #17232f;
+}
+
+.security-bar small,
+.monitor-card small,
+.section-title small {
+    color: #627487;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+}
+
+.security-bar h3 {
+    margin-top: 8px;
+    font-size: 14px;
+}
+
+
+/* COMMAND CENTER */
+
+.command-center {
+    min-height: 500px;
+    padding: 80px 8%;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 80px;
+    align-items: center;
+    border-bottom: 1px solid #17232f;
+}
+
+.terminal-text {
+    color: #00e5ff;
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+}
+
+.command-content h1 {
+    font-size: 60px;
+    line-height: 1.05;
+    letter-spacing: -2px;
+}
+
+.command-content h1 span {
+    color: #00e5ff;
+}
+
+.description {
+    max-width: 600px;
+    margin: 25px 0;
+    color: #8292a3;
+    line-height: 1.7;
+}
+
+.command-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.primary-btn,
+.secondary-btn {
+    padding: 14px 20px;
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+.primary-btn {
+    background: #00e5ff;
+    color: #031016;
+    font-weight: bold;
+}
+
+.secondary-btn {
+    border: 1px solid #304252;
+    color: #b5c3cf;
+}
+
+
+/* SECURITY CORE */
+
+.security-core {
+    border: 1px solid #243443;
+    padding: 25px;
+    background: #080d14;
+}
+
+.core-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #8292a3;
+}
+
+.live {
+    color: #61e6a8;
+}
+
+.core-circle {
+    width: 220px;
+    height: 220px;
+    border: 8px solid #00e5ff;
+    border-left-color: #15313a;
+    border-radius: 50%;
+    margin: 35px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.core-circle div {
+    text-align: center;
+}
+
+.core-circle strong {
+    display: block;
+    font-size: 55px;
+}
+
+.core-circle small {
+    color: #65788a;
+    font-size: 10px;
+}
+
+.core-info {
+    border-top: 1px solid #1b2a36;
+    padding-top: 18px;
+}
+
+.core-info p {
+    color: #617386;
+    font-size: 10px;
+    margin-top: 12px;
+}
+
+.core-info strong {
+    color: #61e6a8;
+    font-size: 12px;
+}
+
+
+/* MONITOR */
+
+.monitor-section,
+.events-section {
+    padding: 70px 8%;
+    border-bottom: 1px solid #17232f;
+}
+
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.section-title h2 {
+    margin-top: 8px;
+    font-size: 25px;
+}
+
+.live-badge {
+    color: #61e6a8;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.monitor-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 15px;
+}
+
+.monitor-card {
+    background: #080d14;
+    border: 1px solid #1b2a36;
+    padding: 25px;
+    min-height: 180px;
+}
+
+.monitor-card h1 {
+    margin-top: 25px;
+    font-size: 38px;
+}
+
+.monitor-card h3 {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.monitor-card p {
+    color: #6f8191;
+    margin-top: 12px;
+    font-size: 12px;
+}
+
+.activity-bars {
+    height: 70px;
+    display: flex;
+    align-items: end;
+    gap: 7px;
+    margin-top: 20px;
+}
+
+.activity-bars span {
+    flex: 1;
+    background: #00e5ff;
+    opacity: .7;
+}
+
+.progress-line {
+    height: 5px;
+    background: #17232f;
+    margin-top: 20px;
+}
+
+.progress-line div {
+    width: 100%;
+    height: 100%;
+    background: #61e6a8;
+}
+
+.success-text {
+    color: #61e6a8 !important;
+}
+
+
+/* EVENTS */
+
+.events-section .section-title a {
+    color: #00e5ff;
+    text-decoration: none;
+    font-size: 10px;
+}
+
+.event-table {
+    border: 1px solid #1b2a36;
+}
+
+.event-row {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr 1fr;
+    padding: 18px 20px;
+    border-bottom: 1px solid #17232f;
+    font-size: 12px;
+}
+
+.event-head {
+    color: #607286;
+    font-size: 10px;
+}
+
+.safe {
+    color: #61e6a8;
+}
+
+.warning {
+    color: #ffc857;
+}
+
+
+/* FOOTER */
+
+footer {
+    padding: 35px 8%;
+    display: flex;
+    justify-content: space-between;
+    background: #070b11;
+}
+
+footer strong {
+    letter-spacing: 2px;
+}
+
+footer p,
+footer small {
+    color: #647689;
+    font-size: 11px;
+    margin-top: 7px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 900px) {
+
+    .system-status {
+        display: none;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .command-center {
+        grid-template-columns: 1fr;
+        padding: 60px 6%;
+    }
+
+    .command-content h1 {
+        font-size: 45px;
+    }
+
+    .security-bar {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .monitor-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .event-row {
+        grid-template-columns: 1fr 2fr;
+        gap: 10px;
+    }
+
+    footer {
+        flex-direction: column;
+        gap: 20px;
+    }
+}

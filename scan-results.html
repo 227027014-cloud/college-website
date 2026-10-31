@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SentinelX | Scan Results</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    background:#05080d;
+    color:#dce7f2;
+    font-family:Arial,sans-serif;
+}
+
+.navbar{
+    height:72px;
+    background:#070b11;
+    border-bottom:1px solid #182630;
+    display:flex;
+    align-items:center;
+    padding:0 5%;
+}
+
+.logo{
+    font-size:20px;
+    font-weight:bold;
+    letter-spacing:3px;
+}
+
+.nav{
+    display:flex;
+    gap:28px;
+    margin-left:auto;
+}
+
+.nav a{
+    color:#697c8c;
+    text-decoration:none;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+.nav a:hover,
+.nav .active{
+    color:#00e5ff;
+}
+
+.operator{
+    margin-left:35px;
+    color:#62e6a8;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+main{
+    padding:35px 5%;
+}
+
+.terminal{
+    color:#00e5ff;
+    font-size:10px;
+    letter-spacing:2px;
+    margin-bottom:10px;
+}
+
+h1{
+    font-size:32px;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    color:#697c8c;
+    font-size:12px;
+    margin-bottom:30px;
+}
+
+.summary{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.card{
+    background:#080d14;
+    border:1px solid #1b2c38;
+    padding:20px;
+}
+
+.card-title{
+    color:#697c8c;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+.card-value{
+    font-size:27px;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.green{
+    color:#62e6a8;
+}
+
+.orange{
+    color:#ffbd5c;
+}
+
+.red{
+    color:#ff5c5c;
+}
+
+.cyan{
+    color:#00e5ff;
+}
+
+.panel{
+    background:#080d14;
+    border:1px solid #1b2c38;
+    margin-bottom:20px;
+}
+
+.panel-header{
+    padding:20px 25px;
+    border-bottom:1px solid #1b2c38;
+}
+
+.panel-header h2{
+    font-size:14px;
+    letter-spacing:1px;
+}
+
+.panel-header p{
+    color:#697c8c;
+    font-size:10px;
+    margin-top:6px;
+}
+
+.result-row{
+    display:grid;
+    grid-template-columns:1fr 130px 110px 100px;
+    gap:15px;
+    align-items:center;
+    padding:18px 25px;
+    border-bottom:1px solid #14212b;
+}
+
+.result-row:last-child{
+    border-bottom:none;
+}
+
+.result-name{
+    font-size:11px;
+}
+
+.result-id{
+    color:#697c8c;
+    font-size:9px;
+    margin-top:5px;
+}
+
+.status{
+    font-size:9px;
+    letter-spacing:1px;
+}
+
+.secure{
+    color:#62e6a8;
+}
+
+.warning{
+    color:#ffbd5c;
+}
+
+.critical{
+    color:#ff5c5c;
+}
+
+.details{
+    color:#00e5ff;
+    font-size:9px;
+    cursor:pointer;
+    text-decoration:none;
+}
+
+.details:hover{
+    text-decoration:underline;
+}
+
+.score-panel{
+    display:grid;
+    grid-template-columns:1fr 2fr;
+    gap:25px;
+    padding:25px;
+}
+
+.score-box{
+    text-align:center;
+    border-right:1px solid #1b2c38;
+    padding:15px;
+}
+
+.score{
+    font-size:52px;
+    font-weight:bold;
+    color:#62e6a8;
+}
+
+.score-label{
+    color:#697c8c;
+    font-size:10px;
+    letter-spacing:1px;
+    margin-top:8px;
+}
+
+.bar-row{
+    margin-bottom:20px;
+}
+
+.bar-top{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:8px;
+    font-size:10px;
+}
+
+.bar-top span:last-child{
+    color:#00e5ff;
+}
+
+.bar{
+    height:7px;
+    background:#14212b;
+}
+
+.fill{
+    height:100%;
+    background:#00e5ff;
+}
+
+.footer{
+    margin-top:45px;
+    padding:20px 5%;
+    border-top:1px solid #182630;
+    color:#4e6574;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+@media(max-width:850px){
+
+    .nav{
+        display:none;
+    }
+
+    .operator{
+        margin-left:auto;
+    }
+
+    .summary{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .result-row{
+        grid-template-columns:1fr;
+        gap:8px;
+    }
+
+    .score-panel{
+        grid-template-columns:1fr;
+    }
+
+    .score-box{
+        border-right:none;
+        border-bottom:1px solid #1b2c38;
+        padding-bottom:25px;
+    }
+}
+
+@media(max-width:500px){
+
+    .summary{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <div class="logo">
+        🛡 SENTINELX
+    </div>
+
+    <div class="nav">
+
+        <a href="dashboard.html">
+            COMMAND CENTER
+        </a>
+
+        <a href="threats.html">
+            THREATS
+        </a>
+
+        <a href="network.html">
+            NETWORK
+        </a>
+
+        <a href="reports.html">
+            REPORTS
+        </a>
+
+        <a href="settings.html">
+            SETTINGS
+        </a>
+
+    </div>
+
+    <div class="operator">
+        ● OPERATOR ONLINE
+    </div>
+
+</div>
+
+
+<main>
+
+    <div class="terminal">
+        SENTINELX // SCAN ANALYSIS
+    </div>
+
+    <h1>
+        Scan Results
+    </h1>
+
+    <p class="subtitle">
+        Detailed results from the latest SentinelX security assessment.
+    </p>
+
+
+    <!-- SUMMARY -->
+
+    <div class="summary">
+
+        <div class="card">
+
+            <div class="card-title">
+                SECURITY SCORE
+            </div>
+
+            <div class="card-value green">
+                94%
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-title">
+                CHECKS PASSED
+            </div>
+
+            <div class="card-value cyan">
+                21
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-title">
+                WARNINGS
+            </div>
+
+            <div class="card-value orange">
+                02
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-title">
+                CRITICAL ISSUES
+            </div>
+
+            <div class="card-value red">
+                01
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SECURITY CHECK RESULTS -->
+
+    <div class="panel">
+
+        <div class="panel-header">
+
+            <h2>
+                SECURITY CHECK RESULTS
+            </h2>
+
+            <p>
+                Latest system inspection results
+            </p>
+
+        </div>
+
+
+        <!-- FIREWALL -->
+
+        <div class="result-row">
+
+            <div>
+
+                <div class="result-name">
+                    Firewall Configuration
+                </div>
+
+                <div class="result-id">
+                    CHECK-FW-001
+                </div>
+
+            </div>
+
+            <div>
+                FIREWALL
+            </div>
+
+            <div class="status secure">
+                SECURE
+            </div>
+
+            <a href="alerts.html" class="details">
+                DETAILS →
+            </a>
+
+        </div>
+
+
+        <!-- NETWORK -->
+
+        <div class="result-row">
+
+            <div>
+
+                <div class="result-name">
+                    Network Exposure Scan
+                </div>
+
+                <div class="result-id">
+                    CHECK-NET-014
+                </div>
+
+            </div>
+
+            <div>
+                NETWORK
+            </div>
+
+            <div class="status warning">
+                WARNING
+            </div>
+
+            <a href="alerts.html" class="details">
+                DETAILS →
+            </a>
+
+        </div>
+
+
+        <!-- ENDPOINT -->
+
+        <div class="result-row">
+
+            <div>
+
+                <div class="result-name">
+                    Endpoint Protection
+                </div>
+
+                <div class="result-id">
+                    CHECK-END-021
+                </div>
+
+            </div>
+
+            <div>
+                ENDPOINT
+            </div>
+
+            <div class="status secure">
+                SECURE
+            </div>
+
+            <a href="alerts.html" class="details">
+                DETAILS →
+            </a>
+
+        </div>
+
+
+        <!-- AUTHENTICATION -->
+
+        <div class="result-row">
+
+            <div>
+
+                <div class="result-name">
+                    Authentication Security
+                </div>
+
+                <div class="result-id">
+                    CHECK-AUTH-002
+                </div>
+
+            </div>
+
+            <div>
+                IDENTITY
+            </div>
+
+            <div class="status critical">
+                CRITICAL
+            </div>
+
+            <a href="alerts.html" class="details">
+                DETAILS →
+            </a>
+
+        </div>
+
+
+        <!-- THREAT DETECTION -->
+
+        <div class="result-row">
+
+            <div>
+
+                <div class="result-name">
+                    Threat Detection Engine
+                </div>
+
+                <div class="result-id">
+                    CHECK-THR-031
+                </div>
+
+            </div>
+
+            <div>
+                THREATS
+            </div>
+
+            <div class="status secure">
+                SECURE
+            </div>
+
+            <a href="alerts.html" class="details">
+                DETAILS →
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- SECURITY SCORE ANALYSIS -->
+
+    <div class="panel">
+
+        <div class="panel-header">
+
+            <h2>
+                SECURITY SCORE ANALYSIS
+            </h2>
+
+            <p>
+                Protection performance by security module
+            </p>
+
+        </div>
+
+
+        <div class="score-panel">
+
+
+            <div class="score-box">
+
+                <div class="score">
+                    94
+                </div>
+
+                <div class="score-label">
+                    OVERALL SECURITY SCORE
+                </div>
+
+                <br>
+
+                <div class="status secure">
+                    ● PROTECTION LEVEL: HIGH
+                </div>
+
+            </div>
+
+
+            <div>
+
+
+                <div class="bar-row">
+
+                    <div class="bar-top">
+
+                        <span>
+                            Firewall Protection
+                        </span>
+
+                        <span>
+                            98%
+                        </span>
+
+                    </div>
+
+                    <div class="bar">
+
+                        <div class="fill" style="width:98%"></div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="bar-row">
+
+                    <div class="bar-top">
+
+                        <span>
+                            Network Security
+                        </span>
+
+                        <span>
+                            96%
+                        </span>
+
+                    </div>
+
+                    <div class="bar">
+
+                        <div class="fill" style="width:96%"></div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="bar-row">
+
+                    <div class="bar-top">
+
+                        <span>
+                            Endpoint Security
+                        </span>
+
+                        <span>
+                            91%
+                        </span>
+
+                    </div>
+
+                    <div class="bar">
+
+                        <div class="fill" style="width:91%"></div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="bar-row">
+
+                    <div class="bar-top">
+
+                        <span>
+                            Authentication
+                        </span>
+
+                        <span>
+                            87%
+                        </span>
+
+                    </div>
+
+                    <div class="bar">
+
+                        <div class="fill" style="width:87%"></div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<div class="footer">
+
+    SENTINELX SOC NODE SX-01 • SCAN ANALYSIS COMPLETE
+
+</div>
+
+</body>
+</html>

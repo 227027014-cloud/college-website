@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SentinelX | Threat Alerts</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #05080d;
+            color: #dce7f2;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            height: 72px;
+            padding: 0 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #070b11;
+            border-bottom: 1px solid #182630;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        .logo span {
+            color: #00e5ff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            color: #718394;
+            text-decoration: none;
+            font-size: 10px;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a:hover,
+        .nav-links .active {
+            color: #00e5ff;
+        }
+
+        .operator {
+            color: #62e6a8;
+            font-size: 10px;
+            letter-spacing: 1px;
+        }
+
+        main {
+            padding: 35px 5%;
+        }
+
+        .heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            margin-bottom: 30px;
+        }
+
+        .terminal {
+            color: #00e5ff;
+            font-size: 10px;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 32px;
+        }
+
+        .heading p {
+            color: #697c8c;
+            font-size: 12px;
+            margin-top: 8px;
+        }
+
+        .scan {
+            color: #62e6a8;
+            font-size: 10px;
+        }
+
+        /* SUMMARY */
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .summary-card {
+            background: #080d14;
+            border: 1px solid #1b2c38;
+            padding: 20px;
+        }
+
+        .summary-card small {
+            color: #617487;
+            font-size: 9px;
+            letter-spacing: 1.5px;
+        }
+
+        .summary-card h2 {
+            margin-top: 14px;
+            font-size: 28px;
+        }
+
+        .critical {
+            color: #ff5c5c;
+        }
+
+        .warning {
+            color: #ffc857;
+        }
+
+        .safe {
+            color: #62e6a8;
+        }
+
+        .cyan {
+            color: #00e5ff;
+        }
+
+        /* ALERT PANEL */
+
+        .panel {
+            background: #080d14;
+            border: 1px solid #1b2c38;
+        }
+
+        .panel-header {
+            padding: 22px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1b2c38;
+        }
+
+        .panel-header h2 {
+            font-size: 17px;
+        }
+
+        .panel-header span {
+            color: #607385;
+            font-size: 9px;
+            letter-spacing: 1px;
+        }
+
+        /* ALERT ROW */
+
+        .alert {
+            display: grid;
+            grid-template-columns: 110px 1fr 120px 100px;
+            gap: 15px;
+            align-items: center;
+            padding: 20px 25px;
+            border-bottom: 1px solid #182630;
+        }
+
+        .alert:hover {
+            background: #0a1118;
+        }
+
+        .alert:last-child {
+            border-bottom: none;
+        }
+
+        .alert-time {
+            color: #536777;
+            font-size: 10px;
+        }
+
+        .alert-title {
+            font-size: 13px;
+            color: #cbd8e2;
+        }
+
+        .alert-title small {
+            display: block;
+            color: #5f7282;
+            font-size: 9px;
+            margin-top: 6px;
+        }
+
+        .severity {
+            font-size: 9px;
+            letter-spacing: 1px;
+        }
+
+        .status {
+            text-align: right;
+            font-size: 9px;
+            letter-spacing: 1px;
+        }
+
+        .critical-text {
+            color: #ff5c5c;
+        }
+
+        .warning-text {
+            color: #ffc857;
+        }
+
+        .safe-text {
+            color: #62e6a8;
+        }
+
+        .review-btn {
+            background: transparent;
+            border: 1px solid #2b3e4b;
+            color: #8394a3;
+            padding: 7px 10px;
+            font-size: 9px;
+            cursor: pointer;
+        }
+
+        .review-btn:hover {
+            border-color: #00e5ff;
+            color: #00e5ff;
+        }
+
+        /* FOOTER */
+
+        footer {
+            margin-top: 25px;
+            padding: 25px 5%;
+            border-top: 1px solid #182630;
+            color: #536676;
+            font-size: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        @media (max-width: 900px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .summary {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .alert {
+                grid-template-columns: 90px 1fr;
+            }
+
+            .severity,
+            .status {
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 550px) {
+
+            .summary {
+                grid-template-columns: 1fr;
+            }
+
+            .heading {
+                display: block;
+            }
+
+            .scan {
+                display: block;
+                margin-top: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            🛡️ SENTINEL<span>X</span>
+        </div>
+
+        <div class="nav-links">
+            <a href="dashboard.html">COMMAND CENTER</a>
+            <a href="threats.html">THREATS</a>
+            <a href="network.html">NETWORK</a>
+            <a href="reports.html">REPORTS</a>
+        </div>
+
+        <div class="operator">
+            ● MONITORING
+        </div>
+
+    </nav>
+
+</header>
+
+
+<main>
+
+    <section class="heading">
+
+        <div>
+            <div class="terminal">
+                SENTINELX // THREAT DETECTION
+            </div>
+
+            <h1>Security Alerts</h1>
+
+            <p>
+                Real-time detection and analysis of suspicious activity.
+            </p>
+        </div>
+
+        <div class="scan">
+            ● LIVE TELEMETRY
+        </div>
+
+    </section>
+
+
+    <!-- SUMMARY -->
+
+    <section class="summary">
+
+        <div class="summary-card">
+            <small>CRITICAL</small>
+            <h2 class="critical">01</h2>
+        </div>
+
+        <div class="summary-card">
+            <small>WARNING</small>
+            <h2 class="warning">03</h2>
+        </div>
+
+        <div class="summary-card">
+            <small>RESOLVED</small>
+            <h2 class="safe">42</h2>
+        </div>
+
+        <div class="summary-card">
+            <small>TOTAL EVENTS</small>
+            <h2 class="cyan">46</h2>
+        </div>
+
+    </section>
+
+
+    <!-- ALERT LIST -->
+
+    <section class="panel">
+
+        <div class="panel-header">
+            <h2>Detected Security Events</h2>
+            <span>EVENT STREAM // ACTIVE</span>
+        </div>
+
+
+        <div class="alert">
+
+            <div class="alert-time">
+                10:47:21
+            </div>
+
+            <div class="alert-title">
+                Multiple failed login attempts
+                <small>AUTH-NODE-02 • 5 attempts detected</small>
+            </div>
+
+            <div class="severity critical-text">
+                ● CRITICAL
+            </div>
+
+            <div class="status">
+                <button class="review-btn"
+                    onclick="reviewAlert('Multiple failed login attempts')">
+                    REVIEW
+                </button>
+            </div>
+
+        </div>
+
+
+        <div class="alert">
+
+            <div class="alert-time">
+                10:39:04
+            </div>
+
+            <div class="alert-title">
+                Unusual network traffic
+                <small>NET-GATEWAY-01 • Port activity anomaly</small>
+            </div>
+
+            <div class="severity warning-text">
+                ● WARNING
+            </div>
+
+            <div class="status">
+                <button class="review-btn"
+                    onclick="reviewAlert('Unusual network traffic')">
+                    REVIEW
+                </button>
+            </div>
+
+        </div>
+
+
+        <div class="alert">
+
+            <div class="alert-time">
+                10:31:48
+            </div>
+
+            <div class="alert-title">
+                Outdated endpoint security
+                <small>ENDPOINT-14 • Security update required</small>
+            </div>
+
+            <div class="severity warning-text">
+                ● WARNING
+            </div>
+
+            <div class="status">
+                <button class="review-btn"
+                    onclick="reviewAlert('Outdated endpoint security')">
+                    REVIEW
+                </button>
+            </div>
+
+        </div>
+
+
+        <div class="alert">
+
+            <div class="alert-time">
+                10:22:16
+            </div>
+
+            <div class="alert-title">
+                Firewall scan completed
+                <small>FIREWALL-01 • No malicious activity detected</small>
+            </div>
+
+            <div class="severity safe-text">
+                ● SECURE
+            </div>
+
+            <div class="status">
+                <button class="review-btn"
+                    onclick="reviewAlert('Firewall scan completed')">
+                    DETAILS
+                </button>
+            </div>
+
+        </div>
+
+
+        <div class="alert">
+
+            <div class="alert-time">
+                10:14:32
+            </div>
+
+            <div class="alert-title">
+                Endpoint protection updated
+                <small>ENDPOINT-08 • Protection database updated</small>
+            </div>
+
+            <div class="severity safe-text">
+                ● RESOLVED
+            </div>
+
+            <div class="status">
+                <button class="review-btn"
+                    onclick="reviewAlert('Endpoint protection updated')">
+                    DETAILS
+                </button>
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <span>SENTINELX SECURITY OPERATIONS</span>
+
+    <span>SOC NODE: SX-01 • THREAT ENGINE ACTIVE</span>
+
+</footer>
+
+
+<script>
+
+function reviewAlert(eventName) {
+
+    alert(
+        "SECURITY EVENT\n\n" +
+        eventName +
+        "\n\nEvent details loaded successfully."
+    );
+
+}
+
+</script>
+
+</body>
+</html>

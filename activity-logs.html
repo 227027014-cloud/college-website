@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SentinelX - Activity Logs</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    background:#05080d;
+    color:#dce7f2;
+    font-family:Arial, sans-serif;
+}
+
+.navbar{
+    height:72px;
+    background:#070b11;
+    border-bottom:1px solid #182630;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 5%;
+}
+
+.logo{
+    font-size:20px;
+    font-weight:bold;
+    letter-spacing:3px;
+}
+
+.logo span{
+    color:#00e5ff;
+}
+
+.nav{
+    display:flex;
+    gap:25px;
+}
+
+.nav a{
+    color:#718493;
+    text-decoration:none;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+.nav a:hover,
+.nav .active{
+    color:#00e5ff;
+}
+
+.operator{
+    color:#62e6a8;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+.main{
+    padding:35px 5%;
+}
+
+.terminal{
+    color:#00e5ff;
+    font-size:10px;
+    letter-spacing:2px;
+    margin-bottom:10px;
+}
+
+h1{
+    font-size:32px;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    color:#697c8c;
+    font-size:12px;
+    margin-bottom:30px;
+}
+
+.summary{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.card{
+    background:#080d14;
+    border:1px solid #1b2c38;
+    padding:20px;
+}
+
+.label{
+    color:#697c8c;
+    font-size:9px;
+    letter-spacing:1px;
+    margin-bottom:10px;
+}
+
+.value{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.cyan{
+    color:#00e5ff;
+}
+
+.green{
+    color:#62e6a8;
+}
+
+.yellow{
+    color:#f2c94c;
+}
+
+.red{
+    color:#ff6577;
+}
+
+.panel{
+    background:#080d14;
+    border:1px solid #1b2c38;
+    margin-bottom:20px;
+}
+
+.panel-header{
+    padding:20px 25px;
+    border-bottom:1px solid #1b2c38;
+    color:#00e5ff;
+    font-size:12px;
+    letter-spacing:1px;
+}
+
+.filters{
+    padding:20px 25px;
+    display:flex;
+    gap:12px;
+}
+
+.filters input,
+.filters select{
+    background:#05080d;
+    border:1px solid #1b2c38;
+    color:#dce7f2;
+    padding:10px 12px;
+    font-size:10px;
+    outline:none;
+}
+
+.filters input{
+    flex:1;
+}
+
+.filters input:focus,
+.filters select:focus{
+    border-color:#00e5ff;
+}
+
+.table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.table th{
+    color:#526572;
+    font-size:9px;
+    text-align:left;
+    padding:15px 20px;
+    border-bottom:1px solid #13212b;
+}
+
+.table td{
+    font-size:10px;
+    padding:15px 20px;
+    border-bottom:1px solid #13212b;
+}
+
+.table tr:last-child td{
+    border-bottom:none;
+}
+
+.success{
+    color:#62e6a8;
+}
+
+.warning{
+    color:#f2c94c;
+}
+
+.failed{
+    color:#ff6577;
+}
+
+.info{
+    color:#00e5ff;
+}
+
+.log-id{
+    color:#718493;
+}
+
+.activity-info{
+    padding:20px 25px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.info-box{
+    border:1px solid #13212b;
+    padding:15px;
+}
+
+.info-title{
+    color:#526572;
+    font-size:9px;
+    letter-spacing:1px;
+    margin-bottom:8px;
+}
+
+.info-value{
+    font-size:12px;
+}
+
+.footer{
+    margin-top:45px;
+    padding:20px 5%;
+    border-top:1px solid #182630;
+    color:#526572;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+@media(max-width:900px){
+
+    .nav{
+        display:none;
+    }
+
+    .summary{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .activity-info{
+        grid-template-columns:1fr;
+    }
+
+    .table{
+        min-width:750px;
+    }
+
+    .panel{
+        overflow-x:auto;
+    }
+}
+
+@media(max-width:500px){
+
+    .summary{
+        grid-template-columns:1fr;
+    }
+
+    .filters{
+        flex-direction:column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        🛡️ <span>SENTINELX</span>
+    </div>
+
+    <nav class="nav">
+        <a href="dashboard.html">COMMAND CENTER</a>
+        <a href="threats.html">THREATS</a>
+        <a href="network.html">NETWORK</a>
+        <a href="reports.html">REPORTS</a>
+        <a href="settings.html">SETTINGS</a>
+        <a href="activity-logs.html" class="active">ACTIVITY LOGS</a>
+    </nav>
+
+    <div class="operator">
+        ● OPERATOR ONLINE
+    </div>
+
+</header>
+
+
+<main class="main">
+
+    <div class="terminal">
+        SENTINELX // SYSTEM ACTIVITY LOG
+    </div>
+
+    <h1>Activity Logs</h1>
+
+    <p class="subtitle">
+        Complete audit trail of operator actions, system events and security operations.
+    </p>
+
+
+    <section class="summary">
+
+        <div class="card">
+            <div class="label">TOTAL LOGS</div>
+            <div class="value cyan">2,481</div>
+        </div>
+
+        <div class="card">
+            <div class="label">TODAY'S EVENTS</div>
+            <div class="value green">126</div>
+        </div>
+
+        <div class="card">
+            <div class="label">WARNINGS</div>
+            <div class="value yellow">08</div>
+        </div>
+
+        <div class="card">
+            <div class="label">FAILED EVENTS</div>
+            <div class="value red">03</div>
+        </div>
+
+    </section>
+
+
+    <section class="panel">
+
+        <div class="panel-header">
+            LOG FILTERS
+        </div>
+
+        <div class="filters">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search activity logs..."
+                onkeyup="searchLogs()"
+            >
+
+            <select onchange="filterLogs()" id="categoryFilter">
+
+                <option value="all">ALL CATEGORIES</option>
+                <option value="authentication">AUTHENTICATION</option>
+                <option value="network">NETWORK</option>
+                <option value="security">SECURITY</option>
+                <option value="system">SYSTEM</option>
+
+            </select>
+
+        </div>
+
+    </section>
+
+
+    <section class="panel">
+
+        <div class="panel-header">
+            RECENT SYSTEM ACTIVITY
+        </div>
+
+        <table class="table" id="logTable">
+
+            <thead>
+
+                <tr>
+                    <th>LOG ID</th>
+                    <th>TIME</th>
+                    <th>CATEGORY</th>
+                    <th>ACTION</th>
+                    <th>SOURCE</th>
+                    <th>RESULT</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr data-category="authentication">
+
+                    <td class="log-id">LOG-2481</td>
+                    <td>10:42:18</td>
+                    <td>AUTHENTICATION</td>
+                    <td>Operator login verified</td>
+                    <td>AUTH-NODE-02</td>
+                    <td class="success">SUCCESS</td>
+
+                </tr>
+
+                <tr data-category="security">
+
+                    <td class="log-id">LOG-2480</td>
+                    <td>10:39:44</td>
+                    <td>SECURITY</td>
+                    <td>Threat database synchronized</td>
+                    <td>THREAT-CORE</td>
+                    <td class="success">COMPLETED</td>
+
+                </tr>
+
+                <tr data-category="network">
+
+                    <td class="log-id">LOG-2479</td>
+                    <td>10:36:21</td>
+                    <td>NETWORK</td>
+                    <td>Network traffic analysis started</td>
+                    <td>NET-GATEWAY-01</td>
+                    <td class="info">RUNNING</td>
+
+                </tr>
+
+                <tr data-category="security">
+
+                    <td class="log-id">LOG-2478</td>
+                    <td>10:31:07</td>
+                    <td>SECURITY</td>
+                    <td>Security scan completed</td>
+                    <td>SX-SCAN-01</td>
+                    <td class="success">SECURE</td>
+
+                </tr>
+
+                <tr data-category="authentication">
+
+                    <td class="log-id">LOG-2477</td>
+                    <td>10:26:52</td>
+                    <td>AUTHENTICATION</td>
+                    <td>Failed authentication attempt</td>
+                    <td>AUTH-NODE-02</td>
+                    <td class="failed">FAILED</td>
+
+                </tr>
+
+                <tr data-category="system">
+
+                    <td class="log-id">LOG-2476</td>
+                    <td>10:22:18</td>
+                    <td>SYSTEM</td>
+                    <td>Monitoring configuration updated</td>
+                    <td>ADMIN-NODE</td>
+                    <td class="success">UPDATED</td>
+
+                </tr>
+
+                <tr data-category="network">
+
+                    <td class="log-id">LOG-2475</td>
+                    <td>10:17:40</td>
+                    <td>NETWORK</td>
+                    <td>Unusual traffic detected</td>
+                    <td>NET-GATEWAY-01</td>
+                    <td class="warning">WARNING</td>
+
+                </tr>
+
+                <tr data-category="security">
+
+                    <td class="log-id">LOG-2474</td>
+                    <td>10:11:35</td>
+                    <td>SECURITY</td>
+                    <td>Firewall inspection completed</td>
+                    <td>FIREWALL-01</td>
+                    <td class="success">SECURE</td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+
+    <section class="panel">
+
+        <div class="panel-header">
+            ACTIVITY MONITORING STATUS
+        </div>
+
+        <div class="activity-info">
+
+            <div class="info-box">
+
+                <div class="info-title">
+                    LOG COLLECTION
+                </div>
+
+                <div class="info-value success">
+                    ● ACTIVE
+                </div>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <div class="info-title">
+                    AUDIT ENGINE
+                </div>
+
+                <div class="info-value success">
+                    ● OPERATIONAL
+                </div>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <div class="info-title">
+                    LAST SYNC
+                </div>
+
+                <div class="info-value">
+                    02 MIN AGO
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="footer">
+    SOC NODE SX-01 • ACTIVITY LOG ENGINE ACTIVE
+</footer>
+
+
+<script>
+
+function searchLogs(){
+
+    let input =
+        document.getElementById("searchInput")
+        .value
+        .toLowerCase();
+
+    let rows =
+        document.querySelectorAll("#logTable tbody tr");
+
+    rows.forEach(function(row){
+
+        let text = row.innerText.toLowerCase();
+
+        if(text.includes(input)){
+            row.style.display = "";
+        }else{
+            row.style.display = "none";
+        }
+
+    });
+
+}
+
+
+function filterLogs(){
+
+    let filter =
+        document.getElementById("categoryFilter").value;
+
+    let rows =
+        document.querySelectorAll("#logTable tbody tr");
+
+    rows.forEach(function(row){
+
+        let category =
+            row.getAttribute("data-category");
+
+        if(filter === "all" || category === filter){
+            row.style.display = "";
+        }else{
+            row.style.display = "none";
+        }
+
+    });
+
+}
+
+</script>
+
+</body>
+</html>

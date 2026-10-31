@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SentinelX | Network Operations</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#05080d;
+    color:#dce7f2;
+    font-family:Arial, sans-serif;
+}
+
+.navbar{
+    height:72px;
+    padding:0 5%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:#070b11;
+    border-bottom:1px solid #182630;
+}
+
+.logo{
+    font-size:20px;
+    font-weight:bold;
+    letter-spacing:3px;
+}
+
+.logo span{
+    color:#00e5ff;
+}
+
+.nav-links{
+    display:flex;
+    gap:24px;
+}
+
+.nav-links a{
+    color:#718394;
+    text-decoration:none;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+.nav-links a:hover,
+.nav-links .active{
+    color:#00e5ff;
+}
+
+.operator{
+    color:#62e6a8;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+main{
+    padding:35px 5%;
+}
+
+.heading{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    margin-bottom:30px;
+}
+
+.terminal{
+    color:#00e5ff;
+    font-size:10px;
+    letter-spacing:2px;
+    margin-bottom:10px;
+}
+
+h1{
+    font-size:32px;
+}
+
+.heading p{
+    color:#697c8c;
+    font-size:12px;
+    margin-top:8px;
+}
+
+.scan{
+    color:#62e6a8;
+    font-size:10px;
+}
+
+/* SUMMARY */
+
+.summary{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.summary-card{
+    background:#080d14;
+    border:1px solid #1b2c38;
+    padding:20px;
+}
+
+.summary-card small{
+    color:#617487;
+    font-size:9px;
+    letter-spacing:1.5px;
+}
+
+.summary-card h2{
+    margin-top:14px;
+    font-size:28px;
+}
+
+.safe{
+    color:#62e6a8;
+}
+
+.cyan{
+    color:#00e5ff;
+}
+
+.warning{
+    color:#ffc857;
+}
+
+/* PANELS */
+
+.panel{
+    background:#080d14;
+    border:1px solid #1b2c38;
+    margin-bottom:25px;
+}
+
+.panel-header{
+    padding:22px 25px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid #1b2c38;
+}
+
+.panel-header h2{
+    font-size:17px;
+}
+
+.panel-header span{
+    color:#607385;
+    font-size:9px;
+    letter-spacing:1px;
+}
+
+/* NETWORK TOPOLOGY */
+
+.topology{
+    height:300px;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+
+.node{
+    position:absolute;
+    width:105px;
+    height:70px;
+    border:1px solid #1b4652;
+    background:#0a1118;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    z-index:2;
+}
+
+.node strong{
+    color:#dce7f2;
+    font-size:11px;
+    margin-bottom:6px;
+}
+
+.node span{
+    color:#62e6a8;
+    font-size:8px;
+    letter-spacing:1px;
+}
+
+.core{
+    width:125px;
+    height:85px;
+    border-color:#00e5ff;
+    background:#09151b;
+}
+
+.core strong{
+    color:#00e5ff;
+    font-size:13px;
+}
+
+.node1{
+    left:8%;
+    top:35px;
+}
+
+.node2{
+    right:8%;
+    top:35px;
+}
+
+.node3{
+    left:8%;
+    bottom:35px;
+}
+
+.node4{
+    right:8%;
+    bottom:35px;
+}
+
+.connection{
+    position:absolute;
+    height:1px;
+    background:#1e5865;
+    transform-origin:left center;
+    z-index:1;
+}
+
+.line1{
+    width:210px;
+    left:18%;
+    top:42%;
+    transform:rotate(14deg);
+}
+
+.line2{
+    width:210px;
+    right:18%;
+    top:42%;
+    transform:rotate(166deg);
+}
+
+.line3{
+    width:210px;
+    left:18%;
+    bottom:42%;
+    transform:rotate(-14deg);
+}
+
+.line4{
+    width:210px;
+    right:18%;
+    bottom:42%;
+    transform:rotate(-166deg);
+}
+
+/* NETWORK TRAFFIC */
+
+.traffic{
+    padding:25px;
+}
+
+.traffic-row{
+    margin-bottom:22px;
+}
+
+.traffic-info{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:8px;
+}
+
+.traffic-info span{
+    font-size:10px;
+    color:#8294a3;
+}
+
+.traffic-info span:last-child{
+    color:#00e5ff;
+}
+
+.bar{
+    height:6px;
+    background:#101a22;
+}
+
+.bar div{
+    height:100%;
+    background:#00e5ff;
+}
+
+/* ENDPOINTS */
+
+.endpoint{
+    display:grid;
+    grid-template-columns:1fr 1fr 120px;
+    align-items:center;
+    gap:15px;
+    padding:18px 25px;
+    border-bottom:1px solid #182630;
+}
+
+.endpoint:last-child{
+    border-bottom:none;
+}
+
+.endpoint-name{
+    font-size:12px;
+    color:#cbd8e2;
+}
+
+.endpoint-ip{
+    color:#607385;
+    font-size:9px;
+}
+
+.endpoint-type{
+    color:#718394;
+    font-size:9px;
+}
+
+.online{
+    text-align:right;
+    color:#62e6a8;
+    font-size:9px;
+    letter-spacing:1px;
+}
+
+/* EVENT LOG */
+
+.log{
+    display:grid;
+    grid-template-columns:100px 1fr 100px;
+    gap:15px;
+    padding:18px 25px;
+    border-bottom:1px solid #182630;
+}
+
+.log:last-child{
+    border-bottom:none;
+}
+
+.log-time{
+    color:#536777;
+    font-size:10px;
+}
+
+.log-event{
+    color:#cbd8e2;
+    font-size:11px;
+}
+
+.log-status{
+    text-align:right;
+    color:#62e6a8;
+    font-size:9px;
+    letter-spacing:1px;
+}
+
+.scan-btn{
+    background:transparent;
+    border:1px solid #2b3e4b;
+    color:#8394a3;
+    padding:7px 10px;
+    font-size:9px;
+    cursor:pointer;
+}
+
+.scan-btn:hover{
+    border-color:#00e5ff;
+    color:#00e5ff;
+}
+
+/* FOOTER */
+
+footer{
+    margin-top:25px;
+    padding:25px 5%;
+    border-top:1px solid #182630;
+    color:#536676;
+    font-size:10px;
+    display:flex;
+    justify-content:space-between;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+    .nav-links{
+        display:none;
+    }
+
+    .summary{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .endpoint{
+        grid-template-columns:1fr;
+    }
+
+    .online{
+        text-align:left;
+    }
+
+}
+
+@media(max-width:550px){
+
+    .summary{
+        grid-template-columns:1fr;
+    }
+
+    .heading{
+        display:block;
+    }
+
+    .scan{
+        display:block;
+        margin-top:15px;
+    }
+
+    .log{
+        grid-template-columns:1fr;
+    }
+
+    .log-status{
+        text-align:left;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<nav class="navbar">
+
+    <div class="logo">
+        🛡️ SENTINEL<span>X</span>
+    </div>
+
+    <div class="nav-links">
+        <a href="dashboard.html">COMMAND CENTER</a>
+        <a href="alerts.html">THREATS</a>
+        <a href="network.html" class="active">NETWORK</a>
+        <a href="reports.html">REPORTS</a>
+    </div>
+
+    <div class="operator">
+        ● MONITORING
+    </div>
+
+</nav>
+
+</header>
+
+
+<main>
+
+<section class="heading">
+
+    <div>
+
+        <div class="terminal">
+            SENTINELX // NETWORK MONITORING
+        </div>
+
+        <h1>Network Operations</h1>
+
+        <p>
+            Real-time network traffic and endpoint monitoring.
+        </p>
+
+    </div>
+
+    <div class="scan">
+        ● LIVE TELEMETRY
+    </div>
+
+</section>
+
+
+<!-- SUMMARY -->
+
+<section class="summary">
+
+    <div class="summary-card">
+        <small>NETWORK HEALTH</small>
+        <h2 class="safe">98%</h2>
+    </div>
+
+    <div class="summary-card">
+        <small>ACTIVE NODES</small>
+        <h2 class="cyan">24</h2>
+    </div>
+
+    <div class="summary-card">
+        <small>INCOMING TRAFFIC</small>
+        <h2 class="warning">842 MB</h2>
+    </div>
+
+    <div class="summary-card">
+        <small>BLOCKED CONNECTIONS</small>
+        <h2 class="safe">127</h2>
+    </div>
+
+</section>
+
+
+<!-- NETWORK TOPOLOGY -->
+
+<section class="panel">
+
+    <div class="panel-header">
+        <h2>Network Topology</h2>
+        <span>TOPOLOGY MAP // LIVE</span>
+    </div>
+
+    <div class="topology">
+
+        <div class="connection line1"></div>
+        <div class="connection line2"></div>
+        <div class="connection line3"></div>
+        <div class="connection line4"></div>
+
+        <div class="node node1">
+            <strong>NET-GATEWAY</strong>
+            <span>● ONLINE</span>
+        </div>
+
+        <div class="node node2">
+            <strong>CORE-SWITCH</strong>
+            <span>● ONLINE</span>
+        </div>
+
+        <div class="node core">
+            <strong>SENTINEL CORE</strong>
+            <span>● SECURE</span>
+        </div>
+
+        <div class="node node3">
+            <strong>ENDPOINT-14</strong>
+            <span>● ONLINE</span>
+        </div>
+
+        <div class="node node4">
+            <strong>ENDPOINT-21</strong>
+            <span>● ONLINE</span>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- TRAFFIC -->
+
+<section class="panel">
+
+    <div class="panel-header">
+        <h2>Network Traffic</h2>
+        <span>TRAFFIC ANALYSIS // ACTIVE</span>
+    </div>
+
+    <div class="traffic">
+
+        <div class="traffic-row">
+
+            <div class="traffic-info">
+                <span>HTTPS</span>
+                <span>78%</span>
+            </div>
+
+            <div class="bar">
+                <div style="width:78%"></div>
+            </div>
+
+        </div>
+
+
+        <div class="traffic-row">
+
+            <div class="traffic-info">
+                <span>DNS</span>
+                <span>52%</span>
+            </div>
+
+            <div class="bar">
+                <div style="width:52%"></div>
+            </div>
+
+        </div>
+
+
+        <div class="traffic-row">
+
+            <div class="traffic-info">
+                <span>SSH</span>
+                <span>31%</span>
+            </div>
+
+            <div class="bar">
+                <div style="width:31%"></div>
+            </div>
+
+        </div>
+
+
+        <div class="traffic-row">
+
+            <div class="traffic-info">
+                <span>FTP</span>
+                <span>18%</span>
+            </div>
+
+            <div class="bar">
+                <div style="width:18%"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ENDPOINTS -->
+
+<section class="panel">
+
+    <div class="panel-header">
+        <h2>Monitored Endpoints</h2>
+        <span>24 / 24 ACTIVE</span>
+    </div>
+
+
+    <div class="endpoint">
+
+        <div class="endpoint-name">
+            NET-GATEWAY-01
+            <div class="endpoint-ip">
+                192.168.1.1
+            </div>
+        </div>
+
+        <div class="endpoint-type">
+            PRIMARY GATEWAY
+        </div>
+
+        <div class="online">
+            ● ONLINE
+        </div>
+
+    </div>
+
+
+    <div class="endpoint">
+
+        <div class="endpoint-name">
+            CORE-SWITCH-02
+            <div class="endpoint-ip">
+                192.168.1.10
+            </div>
+        </div>
+
+        <div class="endpoint-type">
+            NETWORK SWITCH
+        </div>
+
+        <div class="online">
+            ● ONLINE
+        </div>
+
+    </div>
+
+
+    <div class="endpoint">
+
+        <div class="endpoint-name">
+            ENDPOINT-14
+            <div class="endpoint-ip">
+                192.168.1.24
+            </div>
+        </div>
+
+        <div class="endpoint-type">
+            WORKSTATION
+        </div>
+
+        <div class="online">
+            ● ONLINE
+        </div>
+
+    </div>
+
+
+    <div class="endpoint">
+
+        <div class="endpoint-name">
+            ENDPOINT-21
+            <div class="endpoint-ip">
+                192.168.1.31
+            </div>
+        </div>
+
+        <div class="endpoint-type">
+            SECURITY NODE
+        </div>
+
+        <div class="online">
+            ● ONLINE
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- EVENT LOG -->
+
+<section class="panel">
+
+    <div class="panel-header">
+
+        <h2>Network Event Log</h2>
+
+        <button class="scan-btn" onclick="runScan()">
+            RUN SCAN
+        </button>
+
+    </div>
+
+
+    <div class="log">
+
+        <div class="log-time">
+            10:42:18
+        </div>
+
+        <div class="log-event">
+            Encrypted connection established with NODE-14
+        </div>
+
+        <div class="log-status">
+            SECURE
+        </div>
+
+    </div>
+
+
+    <div class="log">
+
+        <div class="log-time">
+            10:41:52
+        </div>
+
+        <div class="log-event">
+            Firewall blocked unauthorized connection attempt
+        </div>
+
+        <div class="log-status">
+            BLOCKED
+        </div>
+
+    </div>
+
+
+    <div class="log">
+
+        <div class="log-time">
+            10:40:31
+        </div>
+
+        <div class="log-event">
+            Network traffic analysis completed
+        </div>
+
+        <div class="log-status">
+            COMPLETE
+        </div>
+
+    </div>
+
+
+    <div class="log">
+
+        <div class="log-time">
+            10:39:07
+        </div>
+
+        <div class="log-event">
+            DNS security monitoring updated
+        </div>
+
+        <div class="log-status">
+            ACTIVE
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+    <span>SENTINELX SECURITY OPERATIONS</span>
+
+    <span>
+        SOC NODE: SX-01 • NETWORK ENGINE ACTIVE
+    </span>
+
+</footer>
+
+
+<script>
+
+function runScan(){
+
+    alert(
+        "NETWORK SCAN\n\n" +
+        "24 Nodes Checked\n" +
+        "0 Critical Issues Found\n\n" +
+        "Network Status: SECURE"
+    );
+
+}
+
+</script>
+
+</body>
+</html>

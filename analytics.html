@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SentinelX | Analytics</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    background:#05080d;
+    color:#dce7f2;
+    font-family:Arial,sans-serif;
+}
+
+.navbar{
+    height:72px;
+    background:#070b11;
+    border-bottom:1px solid #182630;
+    display:flex;
+    align-items:center;
+    padding:0 5%;
+}
+
+.logo{
+    font-size:20px;
+    font-weight:bold;
+    letter-spacing:3px;
+}
+
+.nav{
+    display:flex;
+    gap:28px;
+    margin-left:auto;
+}
+
+.nav a{
+    color:#697c8c;
+    text-decoration:none;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+.nav a:hover,
+.nav .active{
+    color:#00e5ff;
+}
+
+.operator{
+    margin-left:35px;
+    color:#62e6a8;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+main{
+    padding:35px 5%;
+}
+
+.terminal{
+    color:#00e5ff;
+    font-size:10px;
+    letter-spacing:2px;
+    margin-bottom:10px;
+}
+
+h1{
+    font-size:32px;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    color:#697c8c;
+    font-size:12px;
+    margin-bottom:30px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.card{
+    background:#080d14;
+    border:1px solid #1b2c38;
+    padding:20px;
+}
+
+.card-label{
+    color:#697c8c;
+    font-size:9px;
+    letter-spacing:1px;
+    margin-bottom:10px;
+}
+
+.card-value{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.cyan{
+    color:#00e5ff;
+}
+
+.green{
+    color:#62e6a8;
+}
+
+.yellow{
+    color:#f2c94c;
+}
+
+.red{
+    color:#ff6577;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1.5fr 1fr;
+    gap:20px;
+    margin-bottom:20px;
+}
+
+.panel{
+    background:#080d14;
+    border:1px solid #1b2c38;
+}
+
+.panel-header{
+    padding:20px 25px;
+    border-bottom:1px solid #1b2c38;
+}
+
+.panel-header h2{
+    font-size:13px;
+    letter-spacing:1px;
+}
+
+.panel-header p{
+    color:#697c8c;
+    font-size:10px;
+    margin-top:6px;
+}
+
+.chart{
+    height:260px;
+    padding:25px;
+    display:flex;
+    align-items:flex-end;
+    gap:12px;
+}
+
+.bar-box{
+    flex:1;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    align-items:center;
+}
+
+.bar{
+    width:70%;
+    background:#00e5ff;
+    opacity:.75;
+    min-height:20px;
+}
+
+.bar-label{
+    color:#697c8c;
+    font-size:8px;
+    margin-top:10px;
+}
+
+.bar-value{
+    color:#dce7f2;
+    font-size:9px;
+    margin-bottom:5px;
+}
+
+.threat-list{
+    padding:10px 25px;
+}
+
+.threat-row{
+    display:flex;
+    align-items:center;
+    padding:17px 0;
+    border-bottom:1px solid #14212b;
+}
+
+.threat-row:last-child{
+    border-bottom:none;
+}
+
+.threat-name{
+    font-size:10px;
+}
+
+.threat-type{
+    color:#697c8c;
+    font-size:9px;
+    margin-top:5px;
+}
+
+.threat-score{
+    margin-left:auto;
+    font-size:10px;
+}
+
+.activity{
+    padding:5px 25px;
+}
+
+.activity-row{
+    display:grid;
+    grid-template-columns:80px 1fr 100px;
+    align-items:center;
+    padding:16px 0;
+    border-bottom:1px solid #14212b;
+    font-size:10px;
+}
+
+.activity-row:last-child{
+    border-bottom:none;
+}
+
+.time{
+    color:#697c8c;
+}
+
+.status{
+    text-align:right;
+    color:#62e6a8;
+    font-size:9px;
+    letter-spacing:1px;
+}
+
+.footer{
+    margin-top:45px;
+    padding:20px 5%;
+    border-top:1px solid #182630;
+    color:#4e6574;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+@media(max-width:850px){
+
+    .nav{
+        display:none;
+    }
+
+    .operator{
+        margin-left:auto;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:550px){
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .activity-row{
+        grid-template-columns:65px 1fr 80px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <div class="logo">🛡 SENTINELX</div>
+
+    <div class="nav">
+        <a href="dashboard.html">COMMAND CENTER</a>
+        <a href="threats.html">THREATS</a>
+        <a href="network.html">NETWORK</a>
+        <a href="reports.html">REPORTS</a>
+        <a href="settings.html">SETTINGS</a>
+    </div>
+
+    <div class="operator">● OPERATOR ONLINE</div>
+
+</div>
+
+
+<main>
+
+    <div class="terminal">
+        SENTINELX // SECURITY ANALYTICS ENGINE
+    </div>
+
+    <h1>Security Analytics</h1>
+
+    <p class="subtitle">
+        Real-time analysis of system security performance and threat activity.
+    </p>
+
+
+    <div class="stats">
+
+        <div class="card">
+            <div class="card-label">SECURITY SCORE</div>
+            <div class="card-value green">94%</div>
+        </div>
+
+        <div class="card">
+            <div class="card-label">THREATS DETECTED</div>
+            <div class="card-value red">127</div>
+        </div>
+
+        <div class="card">
+            <div class="card-label">EVENTS ANALYZED</div>
+            <div class="card-value cyan">2,481</div>
+        </div>
+
+        <div class="card">
+            <div class="card-label">SYSTEM HEALTH</div>
+            <div class="card-value green">98%</div>
+        </div>
+
+    </div>
+
+
+    <div class="grid">
+
+        <div class="panel">
+
+            <div class="panel-header">
+                <h2>NETWORK ACTIVITY ANALYSIS</h2>
+                <p>Traffic activity monitored during the last 24 hours</p>
+            </div>
+
+            <div class="chart">
+
+                <div class="bar-box">
+                    <div class="bar-value">32%</div>
+                    <div class="bar" style="height:32%;"></div>
+                    <div class="bar-label">00:00</div>
+                </div>
+
+                <div class="bar-box">
+                    <div class="bar-value">48%</div>
+                    <div class="bar" style="height:48%;"></div>
+                    <div class="bar-label">04:00</div>
+                </div>
+
+                <div class="bar-box">
+                    <div class="bar-value">61%</div>
+                    <div class="bar" style="height:61%;"></div>
+                    <div class="bar-label">08:00</div>
+                </div>
+
+                <div class="bar-box">
+                    <div class="bar-value">82%</div>
+                    <div class="bar" style="height:82%;"></div>
+                    <div class="bar-label">12:00</div>
+                </div>
+
+                <div class="bar-box">
+                    <div class="bar-value">67%</div>
+                    <div class="bar" style="height:67%;"></div>
+                    <div class="bar-label">16:00</div>
+                </div>
+
+                <div class="bar-box">
+                    <div class="bar-value">54%</div>
+                    <div class="bar" style="height:54%;"></div>
+                    <div class="bar-label">20:00</div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="panel">
+
+            <div class="panel-header">
+                <h2>THREAT DISTRIBUTION</h2>
+                <p>Detected security event categories</p>
+            </div>
+
+            <div class="threat-list">
+
+                <div class="threat-row">
+                    <div>
+                        <div class="threat-name">AUTHENTICATION</div>
+                        <div class="threat-type">Login anomalies</div>
+                    </div>
+                    <div class="threat-score red">42</div>
+                </div>
+
+                <div class="threat-row">
+                    <div>
+                        <div class="threat-name">NETWORK</div>
+                        <div class="threat-type">Traffic anomalies</div>
+                    </div>
+                    <div class="threat-score yellow">31</div>
+                </div>
+
+                <div class="threat-row">
+                    <div>
+                        <div class="threat-name">ENDPOINT</div>
+                        <div class="threat-type">Device events</div>
+                    </div>
+                    <div class="threat-score cyan">28</div>
+                </div>
+
+                <div class="threat-row">
+                    <div>
+                        <div class="threat-name">FIREWALL</div>
+                        <div class="threat-type">Blocked connections</div>
+                    </div>
+                    <div class="threat-score green">26</div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="panel">
+
+        <div class="panel-header">
+            <h2>ANALYTICS ACTIVITY LOG</h2>
+            <p>Recent events processed by the SentinelX analytics engine</p>
+        </div>
+
+        <div class="activity">
+
+            <div class="activity-row">
+                <div class="time">14:32:08</div>
+                <div>Network traffic pattern analyzed</div>
+                <div class="status">ANALYZED</div>
+            </div>
+
+            <div class="activity-row">
+                <div class="time">14:28:41</div>
+                <div>Authentication anomaly detected</div>
+                <div class="status">FLAGGED</div>
+            </div>
+
+            <div class="activity-row">
+                <div class="time">14:21:17</div>
+                <div>Endpoint security status verified</div>
+                <div class="status">SECURE</div>
+            </div>
+
+            <div class="activity-row">
+                <div class="time">14:15:03</div>
+                <div>Firewall event pattern analyzed</div>
+                <div class="status">ANALYZED</div>
+            </div>
+
+            <div class="activity-row">
+                <div class="time">14:08:52</div>
+                <div>Threat intelligence database updated</div>
+                <div class="status">UPDATED</div>
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<div class="footer">
+    SENTINELX SOC NODE SX-01 • ANALYTICS ENGINE ACTIVE
+</div>
+
+
+</body>
+</html>

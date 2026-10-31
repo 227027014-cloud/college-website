@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SentinelX | Protected Assets</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    background:#05080d;
+    color:#dce7f2;
+    font-family:Arial,sans-serif;
+}
+
+.navbar{
+    height:72px;
+    background:#070b11;
+    border-bottom:1px solid #182630;
+    display:flex;
+    align-items:center;
+    padding:0 5%;
+}
+
+.logo{
+    font-size:20px;
+    font-weight:bold;
+    letter-spacing:3px;
+}
+
+.nav{
+    display:flex;
+    gap:28px;
+    margin-left:auto;
+}
+
+.nav a{
+    color:#697c8c;
+    text-decoration:none;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+.nav a:hover,
+.nav .active{
+    color:#00e5ff;
+}
+
+.operator{
+    margin-left:35px;
+    color:#62e6a8;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+main{
+    padding:35px 5%;
+}
+
+.terminal{
+    color:#00e5ff;
+    font-size:10px;
+    letter-spacing:2px;
+    margin-bottom:10px;
+}
+
+h1{
+    font-size:32px;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    color:#697c8c;
+    font-size:12px;
+    margin-bottom:30px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.card{
+    background:#080d14;
+    border:1px solid #1b2c38;
+    padding:20px;
+}
+
+.label{
+    color:#697c8c;
+    font-size:9px;
+    letter-spacing:1px;
+    margin-bottom:10px;
+}
+
+.value{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.green{
+    color:#62e6a8;
+}
+
+.cyan{
+    color:#00e5ff;
+}
+
+.yellow{
+    color:#f2c94c;
+}
+
+.red{
+    color:#ff6577;
+}
+
+.panel{
+    background:#080d14;
+    border:1px solid #1b2c38;
+    margin-bottom:20px;
+}
+
+.panel-header{
+    padding:20px 25px;
+    border-bottom:1px solid #1b2c38;
+}
+
+.panel-header h2{
+    font-size:13px;
+    letter-spacing:1px;
+}
+
+.panel-header p{
+    color:#697c8c;
+    font-size:10px;
+    margin-top:6px;
+}
+
+.asset-row{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1fr 100px;
+    align-items:center;
+    padding:18px 25px;
+    border-bottom:1px solid #14212b;
+}
+
+.asset-row:last-child{
+    border-bottom:none;
+}
+
+.asset-name{
+    font-size:11px;
+    font-weight:bold;
+}
+
+.asset-id{
+    color:#697c8c;
+    font-size:9px;
+    margin-top:5px;
+}
+
+.asset-type{
+    color:#697c8c;
+    font-size:10px;
+}
+
+.ip{
+    color:#00e5ff;
+    font-size:10px;
+}
+
+.status{
+    color:#62e6a8;
+    font-size:9px;
+    letter-spacing:1px;
+}
+
+.view-btn{
+    border:1px solid #29404d;
+    background:transparent;
+    color:#00e5ff;
+    padding:8px 12px;
+    font-size:9px;
+    cursor:pointer;
+}
+
+.view-btn:hover{
+    background:#0b1820;
+}
+
+.asset-summary{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.progress-panel{
+    background:#080d14;
+    border:1px solid #1b2c38;
+    padding:25px;
+}
+
+.progress-item{
+    margin-bottom:20px;
+}
+
+.progress-item:last-child{
+    margin-bottom:0;
+}
+
+.progress-top{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:8px;
+}
+
+.progress-name{
+    font-size:10px;
+}
+
+.progress-value{
+    color:#00e5ff;
+    font-size:9px;
+}
+
+.progress-bar{
+    height:5px;
+    background:#17232c;
+}
+
+.progress-fill{
+    height:100%;
+    background:#00e5ff;
+}
+
+.footer{
+    margin-top:45px;
+    padding:20px 5%;
+    border-top:1px solid #182630;
+    color:#4e6574;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+@media(max-width:900px){
+
+    .nav{
+        display:none;
+    }
+
+    .operator{
+        margin-left:auto;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .asset-row{
+        grid-template-columns:2fr 1fr 1fr;
+        gap:12px;
+    }
+
+    .asset-row .view-btn{
+        display:none;
+    }
+
+    .asset-summary{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:550px){
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .asset-row{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <div class="logo">🛡 SENTINELX</div>
+
+    <div class="nav">
+        <a href="dashboard.html">COMMAND CENTER</a>
+        <a href="threats.html">THREATS</a>
+        <a href="network.html">NETWORK</a>
+        <a href="reports.html">REPORTS</a>
+        <a href="settings.html">SETTINGS</a>
+    </div>
+
+    <div class="operator">● OPERATOR ONLINE</div>
+
+</div>
+
+
+<main>
+
+    <div class="terminal">
+        SENTINELX // ASSET SECURITY MANAGEMENT
+    </div>
+
+    <h1>Protected Assets</h1>
+
+    <p class="subtitle">
+        Monitor connected devices, endpoints and critical infrastructure.
+    </p>
+
+
+    <div class="stats">
+
+        <div class="card">
+            <div class="label">TOTAL ASSETS</div>
+            <div class="value cyan">24</div>
+        </div>
+
+        <div class="card">
+            <div class="label">ONLINE</div>
+            <div class="value green">22</div>
+        </div>
+
+        <div class="card">
+            <div class="label">AT RISK</div>
+            <div class="value yellow">02</div>
+        </div>
+
+        <div class="card">
+            <div class="label">PROTECTED</div>
+            <div class="value green">92%</div>
+        </div>
+
+    </div>
+
+
+    <div class="panel">
+
+        <div class="panel-header">
+            <h2>MONITORED ASSETS</h2>
+            <p>Connected endpoints currently monitored by SentinelX</p>
+        </div>
+
+
+        <div class="asset-row">
+
+            <div>
+                <div class="asset-name">SENTINEL CORE SERVER</div>
+                <div class="asset-id">ASSET-SX-001</div>
+            </div>
+
+            <div class="asset-type">SERVER</div>
+
+            <div class="ip">10.0.0.01</div>
+
+            <div class="status">● ONLINE</div>
+
+            <button class="view-btn"
+            onclick="viewAsset('SENTINEL CORE SERVER')">
+                VIEW
+            </button>
+
+        </div>
+
+
+        <div class="asset-row">
+
+            <div>
+                <div class="asset-name">AUTHENTICATION NODE</div>
+                <div class="asset-id">ASSET-AUTH-02</div>
+            </div>
+
+            <div class="asset-type">SECURITY NODE</div>
+
+            <div class="ip">10.0.0.12</div>
+
+            <div class="status">● ONLINE</div>
+
+            <button class="view-btn"
+            onclick="viewAsset('AUTHENTICATION NODE')">
+                VIEW
+            </button>
+
+        </div>
+
+
+        <div class="asset-row">
+
+            <div>
+                <div class="asset-name">ENDPOINT-14</div>
+                <div class="asset-id">ASSET-END-014</div>
+            </div>
+
+            <div class="asset-type">WORKSTATION</div>
+
+            <div class="ip">10.0.0.24</div>
+
+            <div class="status">● ONLINE</div>
+
+            <button class="view-btn"
+            onclick="viewAsset('ENDPOINT-14')">
+                VIEW
+            </button>
+
+        </div>
+
+
+        <div class="asset-row">
+
+            <div>
+                <div class="asset-name">ENDPOINT-21</div>
+                <div class="asset-id">ASSET-END-021</div>
+            </div>
+
+            <div class="asset-type">WORKSTATION</div>
+
+            <div class="ip">10.0.0.31</div>
+
+            <div class="status">● ONLINE</div>
+
+            <button class="view-btn"
+            onclick="viewAsset('ENDPOINT-21')">
+                VIEW
+            </button>
+
+        </div>
+
+
+        <div class="asset-row">
+
+            <div>
+                <div class="asset-name">NETWORK GATEWAY</div>
+                <div class="asset-id">ASSET-NET-001</div>
+            </div>
+
+            <div class="asset-type">GATEWAY</div>
+
+            <div class="ip">10.0.0.01</div>
+
+            <div class="status">● ONLINE</div>
+
+            <button class="view-btn"
+            onclick="viewAsset('NETWORK GATEWAY')">
+                VIEW
+            </button>
+
+        </div>
+
+
+        <div class="asset-row">
+
+            <div>
+                <div class="asset-name">BACKUP STORAGE NODE</div>
+                <div class="asset-id">ASSET-BKP-007</div>
+            </div>
+
+            <div class="asset-type">STORAGE</div>
+
+            <div class="ip">10.0.0.45</div>
+
+            <div class="status">● WARNING</div>
+
+            <button class="view-btn"
+            onclick="viewAsset('BACKUP STORAGE NODE')">
+                VIEW
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="asset-summary">
+
+        <div class="progress-panel">
+
+            <div class="panel-header" style="padding:0 0 20px 0;">
+                <h2>ASSET PROTECTION</h2>
+                <p>Security coverage across monitored assets</p>
+            </div>
+
+            <div class="progress-item">
+
+                <div class="progress-top">
+                    <div class="progress-name">SERVER SECURITY</div>
+                    <div class="progress-value">98%</div>
+                </div>
+
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width:98%;"></div>
+                </div>
+
+            </div>
+
+
+            <div class="progress-item">
+
+                <div class="progress-top">
+                    <div class="progress-name">ENDPOINT SECURITY</div>
+                    <div class="progress-value">91%</div>
+                </div>
+
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width:91%;"></div>
+                </div>
+
+            </div>
+
+
+            <div class="progress-item">
+
+                <div class="progress-top">
+                    <div class="progress-name">NETWORK SECURITY</div>
+                    <div class="progress-value">96%</div>
+                </div>
+
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width:96%;"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="progress-panel">
+
+            <div class="panel-header" style="padding:0 0 20px 0;">
+                <h2>ASSET STATUS</h2>
+                <p>Current infrastructure condition</p>
+            </div>
+
+            <div class="progress-item">
+
+                <div class="progress-top">
+                    <div class="progress-name">ACTIVE ASSETS</div>
+                    <div class="progress-value">22 / 24</div>
+                </div>
+
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width:92%;"></div>
+                </div>
+
+            </div>
+
+
+            <div class="progress-item">
+
+                <div class="progress-top">
+                    <div class="progress-name">SECURITY COVERAGE</div>
+                    <div class="progress-value">92%</div>
+                </div>
+
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width:92%;"></div>
+                </div>
+
+            </div>
+
+
+            <div class="progress-item">
+
+                <div class="progress-top">
+                    <div class="progress-name">SYSTEM HEALTH</div>
+                    <div class="progress-value">98%</div>
+                </div>
+
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width:98%;"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<div class="footer">
+    SENTINELX SOC NODE SX-01 • ASSET MONITORING ACTIVE
+</div>
+
+
+<script>
+
+function viewAsset(asset){
+
+    alert(
+        "ASSET DETAILS\n\n" +
+        "Asset: " + asset +
+        "\nStatus: Monitored"
+    );
+
+}
+
+</script>
+
+</body>
+</html>

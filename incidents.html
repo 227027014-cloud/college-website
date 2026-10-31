@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SentinelX | Security Incidents</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    background:#05080d;
+    color:#dce7f2;
+    font-family:Arial,sans-serif;
+}
+
+.navbar{
+    height:72px;
+    background:#070b11;
+    border-bottom:1px solid #182630;
+    display:flex;
+    align-items:center;
+    padding:0 5%;
+}
+
+.logo{
+    font-size:20px;
+    font-weight:bold;
+    letter-spacing:3px;
+}
+
+.nav{
+    display:flex;
+    gap:28px;
+    margin-left:auto;
+}
+
+.nav a{
+    color:#697c8c;
+    text-decoration:none;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+.nav a:hover{
+    color:#00e5ff;
+}
+
+.operator{
+    margin-left:35px;
+    color:#62e6a8;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+main{
+    padding:35px 5%;
+}
+
+.terminal{
+    color:#00e5ff;
+    font-size:10px;
+    letter-spacing:2px;
+    margin-bottom:10px;
+}
+
+h1{
+    font-size:32px;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    color:#697c8c;
+    font-size:12px;
+    margin-bottom:30px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.card{
+    background:#080d14;
+    border:1px solid #1b2c38;
+    padding:20px;
+}
+
+.label{
+    color:#697c8c;
+    font-size:9px;
+    letter-spacing:1px;
+    margin-bottom:10px;
+}
+
+.value{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.red{
+    color:#ff6577;
+}
+
+.yellow{
+    color:#f2c94c;
+}
+
+.green{
+    color:#62e6a8;
+}
+
+.cyan{
+    color:#00e5ff;
+}
+
+.panel{
+    background:#080d14;
+    border:1px solid #1b2c38;
+    margin-bottom:20px;
+}
+
+.panel-header{
+    padding:20px 25px;
+    border-bottom:1px solid #1b2c38;
+}
+
+.panel-header h2{
+    font-size:13px;
+    letter-spacing:1px;
+}
+
+.panel-header p{
+    color:#697c8c;
+    font-size:10px;
+    margin-top:6px;
+}
+
+.incident{
+    display:grid;
+    grid-template-columns:100px 2fr 1fr 1fr 100px;
+    align-items:center;
+    gap:15px;
+    padding:20px 25px;
+    border-bottom:1px solid #14212b;
+}
+
+.incident:last-child{
+    border-bottom:none;
+}
+
+.incident-id{
+    color:#00e5ff;
+    font-size:9px;
+    letter-spacing:1px;
+}
+
+.incident-title{
+    font-size:11px;
+    font-weight:bold;
+}
+
+.incident-source{
+    color:#697c8c;
+    font-size:9px;
+    margin-top:5px;
+}
+
+.level{
+    font-size:9px;
+    letter-spacing:1px;
+}
+
+.critical{
+    color:#ff6577;
+}
+
+.warning{
+    color:#f2c94c;
+}
+
+.resolved{
+    color:#62e6a8;
+}
+
+.status{
+    font-size:9px;
+    color:#697c8c;
+    letter-spacing:1px;
+}
+
+.action{
+    border:1px solid #29404d;
+    background:transparent;
+    color:#00e5ff;
+    padding:8px 10px;
+    font-size:9px;
+    cursor:pointer;
+}
+
+.action:hover{
+    background:#0b1820;
+}
+
+.timeline{
+    padding:10px 25px;
+}
+
+.timeline-row{
+    display:grid;
+    grid-template-columns:90px 18px 1fr;
+    gap:15px;
+    padding:16px 0;
+    border-bottom:1px solid #14212b;
+}
+
+.timeline-row:last-child{
+    border-bottom:none;
+}
+
+.time{
+    color:#697c8c;
+    font-size:9px;
+}
+
+.dot{
+    width:9px;
+    height:9px;
+    border:1px solid #00e5ff;
+    margin-top:2px;
+}
+
+.timeline-text{
+    font-size:10px;
+}
+
+.timeline-text span{
+    color:#697c8c;
+    display:block;
+    margin-top:5px;
+    font-size:9px;
+}
+
+.footer{
+    margin-top:45px;
+    padding:20px 5%;
+    border-top:1px solid #182630;
+    color:#4e6574;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+@media(max-width:900px){
+
+    .nav{
+        display:none;
+    }
+
+    .operator{
+        margin-left:auto;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .incident{
+        grid-template-columns:90px 2fr 1fr;
+    }
+
+    .incident .status,
+    .incident .action{
+        display:none;
+    }
+}
+
+@media(max-width:550px){
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .incident{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <div class="logo">🛡 SENTINELX</div>
+
+    <div class="nav">
+        <a href="dashboard.html">COMMAND CENTER</a>
+        <a href="threats.html">THREATS</a>
+        <a href="network.html">NETWORK</a>
+        <a href="reports.html">REPORTS</a>
+        <a href="settings.html">SETTINGS</a>
+    </div>
+
+    <div class="operator">● OPERATOR ONLINE</div>
+
+</div>
+
+
+<main>
+
+    <div class="terminal">
+        SENTINELX // INCIDENT RESPONSE CENTER
+    </div>
+
+    <h1>Security Incidents</h1>
+
+    <p class="subtitle">
+        Investigate, monitor and manage detected security incidents.
+    </p>
+
+
+    <div class="stats">
+
+        <div class="card">
+            <div class="label">OPEN INCIDENTS</div>
+            <div class="value red">03</div>
+        </div>
+
+        <div class="card">
+            <div class="label">UNDER INVESTIGATION</div>
+            <div class="value yellow">05</div>
+        </div>
+
+        <div class="card">
+            <div class="label">RESOLVED TODAY</div>
+            <div class="value green">18</div>
+        </div>
+
+        <div class="card">
+            <div class="label">TOTAL INCIDENTS</div>
+            <div class="value cyan">26</div>
+        </div>
+
+    </div>
+
+
+    <div class="panel">
+
+        <div class="panel-header">
+            <h2>ACTIVE SECURITY INCIDENTS</h2>
+            <p>Current incidents requiring security operator attention</p>
+        </div>
+
+
+        <div class="incident">
+
+            <div class="incident-id">
+                INC-042
+            </div>
+
+            <div>
+                <div class="incident-title">
+                    Multiple Authentication Failures
+                </div>
+
+                <div class="incident-source">
+                    Source: AUTH-NODE-02
+                </div>
+            </div>
+
+            <div class="level critical">
+                CRITICAL
+            </div>
+
+            <div class="status">
+                OPEN
+            </div>
+
+            <button class="action"
+            onclick="reviewIncident('INC-042')">
+                REVIEW
+            </button>
+
+        </div>
+
+
+        <div class="incident">
+
+            <div class="incident-id">
+                INC-041
+            </div>
+
+            <div>
+                <div class="incident-title">
+                    Unusual Network Traffic
+                </div>
+
+                <div class="incident-source">
+                    Source: NET-GATEWAY-01
+                </div>
+            </div>
+
+            <div class="level warning">
+                WARNING
+            </div>
+
+            <div class="status">
+                INVESTIGATING
+            </div>
+
+            <button class="action"
+            onclick="reviewIncident('INC-041')">
+                REVIEW
+            </button>
+
+        </div>
+
+
+        <div class="incident">
+
+            <div class="incident-id">
+                INC-040
+            </div>
+
+            <div>
+                <div class="incident-title">
+                    Endpoint Security Anomaly
+                </div>
+
+                <div class="incident-source">
+                    Source: ENDPOINT-14
+                </div>
+            </div>
+
+            <div class="level warning">
+                WARNING
+            </div>
+
+            <div class="status">
+                OPEN
+            </div>
+
+            <button class="action"
+            onclick="reviewIncident('INC-040')">
+                REVIEW
+            </button>
+
+        </div>
+
+
+        <div class="incident">
+
+            <div class="incident-id">
+                INC-039
+            </div>
+
+            <div>
+                <div class="incident-title">
+                    Firewall Rule Violation
+                </div>
+
+                <div class="incident-source">
+                    Source: FIREWALL-01
+                </div>
+            </div>
+
+            <div class="level resolved">
+                RESOLVED
+            </div>
+
+            <div class="status">
+                CLOSED
+            </div>
+
+            <button class="action"
+            onclick="reviewIncident('INC-039')">
+                VIEW
+            </button>
+
+        </div>
+
+
+        <div class="incident">
+
+            <div class="incident-id">
+                INC-038
+            </div>
+
+            <div>
+                <div class="incident-title">
+                    Suspicious Login Attempt
+                </div>
+
+                <div class="incident-source">
+                    Source: AUTH-NODE-01
+                </div>
+            </div>
+
+            <div class="level resolved">
+                RESOLVED
+            </div>
+
+            <div class="status">
+                CLOSED
+            </div>
+
+            <button class="action"
+            onclick="reviewIncident('INC-038')">
+                VIEW
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="panel">
+
+        <div class="panel-header">
+            <h2>INCIDENT RESPONSE TIMELINE</h2>
+            <p>Recent actions performed by the SentinelX response engine</p>
+        </div>
+
+        <div class="timeline">
+
+            <div class="timeline-row">
+
+                <div class="time">14:42:18</div>
+
+                <div class="dot"></div>
+
+                <div class="timeline-text">
+                    Critical authentication incident detected
+                    <span>INC-042 • AUTH-NODE-02</span>
+                </div>
+
+            </div>
+
+
+            <div class="timeline-row">
+
+                <div class="time">14:39:51</div>
+
+                <div class="dot"></div>
+
+                <div class="timeline-text">
+                    Network traffic anomaly flagged
+                    <span>INC-041 • NET-GATEWAY-01</span>
+                </div>
+
+            </div>
+
+
+            <div class="timeline-row">
+
+                <div class="time">14:32:07</div>
+
+                <div class="dot"></div>
+
+                <div class="timeline-text">
+                    Endpoint investigation initiated
+                    <span>INC-040 • ENDPOINT-14</span>
+                </div>
+
+            </div>
+
+
+            <div class="timeline-row">
+
+                <div class="time">14:21:43</div>
+
+                <div class="dot"></div>
+
+                <div class="timeline-text">
+                    Firewall incident marked as resolved
+                    <span>INC-039 • FIREWALL-01</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<div class="footer">
+    SENTINELX SOC NODE SX-01 • INCIDENT RESPONSE ACTIVE
+</div>
+
+
+<script>
+
+function reviewIncident(id){
+
+    alert(
+        "INCIDENT REVIEW\n\n" +
+        "Incident ID: " + id +
+        "\nStatus: Security investigation active."
+    );
+
+}
+
+</script>
+
+</body>
+</html>

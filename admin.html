@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SentinelX - Admin Overview</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    background:#05080d;
+    color:#dce7f2;
+    font-family:Arial, sans-serif;
+}
+
+.navbar{
+    height:72px;
+    background:#070b11;
+    border-bottom:1px solid #182630;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 5%;
+}
+
+.logo{
+    font-size:20px;
+    font-weight:bold;
+    letter-spacing:3px;
+}
+
+.logo span{
+    color:#00e5ff;
+}
+
+.nav{
+    display:flex;
+    gap:25px;
+}
+
+.nav a{
+    color:#718493;
+    text-decoration:none;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+.nav a:hover,
+.nav .active{
+    color:#00e5ff;
+}
+
+.operator{
+    color:#62e6a8;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+.main{
+    padding:35px 5%;
+}
+
+.terminal{
+    color:#00e5ff;
+    font-size:10px;
+    letter-spacing:2px;
+    margin-bottom:10px;
+}
+
+h1{
+    font-size:32px;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    color:#697c8c;
+    font-size:12px;
+    margin-bottom:30px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.card{
+    background:#080d14;
+    border:1px solid #1b2c38;
+    padding:20px;
+}
+
+.card-label{
+    color:#697c8c;
+    font-size:9px;
+    letter-spacing:1px;
+    margin-bottom:10px;
+}
+
+.card-value{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.cyan{
+    color:#00e5ff;
+}
+
+.green{
+    color:#62e6a8;
+}
+
+.yellow{
+    color:#f2c94c;
+}
+
+.red{
+    color:#ff6577;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1.5fr 1fr;
+    gap:20px;
+}
+
+.panel{
+    background:#080d14;
+    border:1px solid #1b2c38;
+    margin-bottom:20px;
+}
+
+.panel-header{
+    padding:20px 25px;
+    border-bottom:1px solid #1b2c38;
+    color:#00e5ff;
+    font-size:12px;
+    letter-spacing:1px;
+}
+
+.table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.table th{
+    color:#526572;
+    font-size:9px;
+    text-align:left;
+    padding:15px 20px;
+    border-bottom:1px solid #13212b;
+}
+
+.table td{
+    font-size:10px;
+    padding:15px 20px;
+    border-bottom:1px solid #13212b;
+}
+
+.table tr:last-child td{
+    border-bottom:none;
+}
+
+.online{
+    color:#62e6a8;
+}
+
+.warning{
+    color:#f2c94c;
+}
+
+.blocked{
+    color:#ff6577;
+}
+
+.progress-box{
+    padding:20px 25px;
+}
+
+.progress-item{
+    margin-bottom:22px;
+}
+
+.progress-top{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:8px;
+}
+
+.progress-name{
+    font-size:10px;
+}
+
+.progress-value{
+    color:#00e5ff;
+    font-size:10px;
+}
+
+.progress{
+    height:5px;
+    background:#101923;
+}
+
+.progress span{
+    display:block;
+    height:100%;
+    background:#00e5ff;
+}
+
+.system-list{
+    padding:10px 25px;
+}
+
+.system-row{
+    display:flex;
+    justify-content:space-between;
+    padding:16px 0;
+    border-bottom:1px solid #13212b;
+    font-size:10px;
+}
+
+.system-row:last-child{
+    border-bottom:none;
+}
+
+.activity{
+    padding:5px 25px;
+}
+
+.activity-row{
+    display:flex;
+    justify-content:space-between;
+    padding:15px 0;
+    border-bottom:1px solid #13212b;
+    font-size:10px;
+}
+
+.activity-row:last-child{
+    border-bottom:none;
+}
+
+.time{
+    color:#697c8c;
+}
+
+.action-btn{
+    background:transparent;
+    border:1px solid #1b5362;
+    color:#00e5ff;
+    padding:8px 14px;
+    font-size:9px;
+    letter-spacing:1px;
+    cursor:pointer;
+}
+
+.action-btn:hover{
+    background:#00e5ff;
+    color:#05080d;
+}
+
+.footer{
+    margin-top:25px;
+    padding:20px 5%;
+    border-top:1px solid #182630;
+    color:#526572;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+@media(max-width:900px){
+
+    .nav{
+        display:none;
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:500px){
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        🛡️ <span>SENTINELX</span>
+    </div>
+
+    <nav class="nav">
+        <a href="dashboard.html">COMMAND CENTER</a>
+        <a href="threats.html">THREATS</a>
+        <a href="network.html">NETWORK</a>
+        <a href="reports.html">REPORTS</a>
+        <a href="settings.html">SETTINGS</a>
+        <a href="admin.html" class="active">ADMIN</a>
+    </nav>
+
+    <div class="operator">
+        ● ADMIN ONLINE
+    </div>
+
+</header>
+
+
+<main class="main">
+
+    <div class="terminal">
+        SENTINELX // ADMINISTRATOR CONTROL CENTER
+    </div>
+
+    <h1>Admin Overview</h1>
+
+    <p class="subtitle">
+        System administration, security operations and infrastructure monitoring.
+    </p>
+
+
+    <section class="stats">
+
+        <div class="card">
+            <div class="card-label">TOTAL OPERATORS</div>
+            <div class="card-value cyan">08</div>
+        </div>
+
+        <div class="card">
+            <div class="card-label">ACTIVE SESSIONS</div>
+            <div class="card-value green">05</div>
+        </div>
+
+        <div class="card">
+            <div class="card-label">SYSTEM ALERTS</div>
+            <div class="card-value yellow">04</div>
+        </div>
+
+        <div class="card">
+            <div class="card-label">SECURITY ISSUES</div>
+            <div class="card-value red">01</div>
+        </div>
+
+    </section>
+
+
+    <section class="grid">
+
+        <div>
+
+            <div class="panel">
+
+                <div class="panel-header">
+                    OPERATOR ACCESS CONTROL
+                </div>
+
+                <table class="table">
+
+                    <tr>
+                        <th>OPERATOR</th>
+                        <th>ACCESS LEVEL</th>
+                        <th>SESSION</th>
+                    </tr>
+
+                    <tr>
+                        <td>Security Admin</td>
+                        <td class="cyan">ADMIN</td>
+                        <td class="online">ACTIVE</td>
+                    </tr>
+
+                    <tr>
+                        <td>Network Operator</td>
+                        <td>OPERATOR</td>
+                        <td class="online">ACTIVE</td>
+                    </tr>
+
+                    <tr>
+                        <td>Threat Analyst</td>
+                        <td>ANALYST</td>
+                        <td class="online">ACTIVE</td>
+                    </tr>
+
+                    <tr>
+                        <td>System Monitor</td>
+                        <td>MONITOR</td>
+                        <td class="warning">IDLE</td>
+                    </tr>
+
+                    <tr>
+                        <td>Security Auditor</td>
+                        <td>AUDITOR</td>
+                        <td class="blocked">OFFLINE</td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="panel-header">
+                    SYSTEM PERFORMANCE
+                </div>
+
+                <div class="progress-box">
+
+                    <div class="progress-item">
+
+                        <div class="progress-top">
+                            <span class="progress-name">
+                                CPU UTILIZATION
+                            </span>
+
+                            <span class="progress-value">
+                                42%
+                            </span>
+                        </div>
+
+                        <div class="progress">
+                            <span style="width:42%"></span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="progress-item">
+
+                        <div class="progress-top">
+                            <span class="progress-name">
+                                MEMORY USAGE
+                            </span>
+
+                            <span class="progress-value">
+                                61%
+                            </span>
+                        </div>
+
+                        <div class="progress">
+                            <span style="width:61%"></span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="progress-item">
+
+                        <div class="progress-top">
+                            <span class="progress-name">
+                                NETWORK LOAD
+                            </span>
+
+                            <span class="progress-value">
+                                38%
+                            </span>
+                        </div>
+
+                        <div class="progress">
+                            <span style="width:38%"></span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="progress-item">
+
+                        <div class="progress-top">
+                            <span class="progress-name">
+                                SECURITY ENGINE
+                            </span>
+
+                            <span class="progress-value">
+                                94%
+                            </span>
+                        </div>
+
+                        <div class="progress">
+                            <span style="width:94%"></span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div>
+
+            <div class="panel">
+
+                <div class="panel-header">
+                    SYSTEM SERVICES
+                </div>
+
+                <div class="system-list">
+
+                    <div class="system-row">
+                        <span>Threat Detection Engine</span>
+                        <span class="online">ACTIVE</span>
+                    </div>
+
+                    <div class="system-row">
+                        <span>Network Monitoring</span>
+                        <span class="online">ACTIVE</span>
+                    </div>
+
+                    <div class="system-row">
+                        <span>Firewall Service</span>
+                        <span class="online">ACTIVE</span>
+                    </div>
+
+                    <div class="system-row">
+                        <span>Authentication Service</span>
+                        <span class="online">ACTIVE</span>
+                    </div>
+
+                    <div class="system-row">
+                        <span>Report Engine</span>
+                        <span class="online">ACTIVE</span>
+                    </div>
+
+                    <div class="system-row">
+                        <span>Backup Service</span>
+                        <span class="warning">WARNING</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="panel-header">
+                    ADMIN ACTIONS
+                </div>
+
+                <div class="system-list">
+
+                    <div class="system-row">
+                        <span>System Audit</span>
+
+                        <button class="action-btn"
+                        onclick="adminAction('System Audit')">
+                            RUN
+                        </button>
+                    </div>
+
+                    <div class="system-row">
+                        <span>Access Review</span>
+
+                        <button class="action-btn"
+                        onclick="adminAction('Access Review')">
+                            OPEN
+                        </button>
+                    </div>
+
+                    <div class="system-row">
+                        <span>Security Maintenance</span>
+
+                        <button class="action-btn"
+                        onclick="adminAction('Security Maintenance')">
+                            START
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="panel">
+
+        <div class="panel-header">
+            ADMIN ACTIVITY LOG
+        </div>
+
+        <div class="activity">
+
+            <div class="activity-row">
+                <span>Security configuration updated</span>
+                <span class="time">10:42:18</span>
+            </div>
+
+            <div class="activity-row">
+                <span>Operator access verified</span>
+                <span class="time">10:37:04</span>
+            </div>
+
+            <div class="activity-row">
+                <span>Threat database synchronized</span>
+                <span class="time">10:29:51</span>
+            </div>
+
+            <div class="activity-row">
+                <span>Network monitoring service checked</span>
+                <span class="time">10:18:32</span>
+            </div>
+
+            <div class="activity-row">
+                <span>System health verification completed</span>
+                <span class="time">10:05:17</span>
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="footer">
+    SOC NODE SX-01 • ADMIN CONTROL CENTER ACTIVE
+</footer>
+
+
+<script>
+
+function adminAction(action){
+
+    alert(
+        "SENTINELX ADMIN\n\n" +
+        action +
+        " initiated.\n\n" +
+        "Admin Node: SX-ADMIN-01\n" +
+        "Status: PROCESSING"
+    );
+
+}
+
+</script>
+
+</body>
+</html>

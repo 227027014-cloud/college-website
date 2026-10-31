@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SentinelX | Command Center</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #05080d;
+            color: #dce7f2;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            height: 72px;
+            padding: 0 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #070b11;
+            border-bottom: 1px solid #182630;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        .logo span {
+            color: #00e5ff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: #718394;
+            text-decoration: none;
+            font-size: 11px;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a:hover {
+            color: #00e5ff;
+        }
+
+        .operator {
+            color: #62e6a8;
+            font-size: 10px;
+            letter-spacing: 1px;
+        }
+
+        main {
+            padding: 35px 5%;
+        }
+
+        .top-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            margin-bottom: 30px;
+        }
+
+        .terminal {
+            color: #00e5ff;
+            font-size: 10px;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 32px;
+        }
+
+        .scan-status {
+            color: #62e6a8;
+            font-size: 10px;
+            letter-spacing: 1px;
+        }
+
+        /* STATS */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: #080d14;
+            border: 1px solid #1b2c38;
+            padding: 22px;
+        }
+
+        .stat-card small {
+            color: #617487;
+            font-size: 9px;
+            letter-spacing: 1.5px;
+        }
+
+        .stat-card h2 {
+            font-size: 30px;
+            margin: 15px 0 7px;
+        }
+
+        .green {
+            color: #62e6a8;
+        }
+
+        .cyan {
+            color: #00e5ff;
+        }
+
+        .yellow {
+            color: #ffc857;
+        }
+
+        .stat-card p {
+            color: #657788;
+            font-size: 10px;
+        }
+
+        /* MAIN GRID */
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        .panel {
+            background: #080d14;
+            border: 1px solid #1b2c38;
+            padding: 25px;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .panel-header h2 {
+            font-size: 17px;
+        }
+
+        .panel-header span {
+            color: #627587;
+            font-size: 9px;
+            letter-spacing: 1px;
+        }
+
+        /* ACTIVITY */
+
+        .chart {
+            height: 210px;
+            display: flex;
+            align-items: end;
+            gap: 12px;
+            border-bottom: 1px solid #20303b;
+            padding: 10px;
+        }
+
+        .bar {
+            flex: 1;
+            background: #00e5ff;
+            opacity: .65;
+            min-height: 20px;
+        }
+
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            color: #526574;
+            font-size: 9px;
+            margin-top: 10px;
+        }
+
+        /* SECURITY SCORE */
+
+        .score {
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 155px;
+            height: 155px;
+            border: 8px solid #00e5ff;
+            border-left-color: #18343d;
+            border-radius: 50%;
+            margin: 15px auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .score-circle strong {
+            font-size: 42px;
+        }
+
+        .score p {
+            color: #62e6a8;
+            font-size: 11px;
+            letter-spacing: 1px;
+        }
+
+        /* EVENTS */
+
+        .events {
+            margin-top: 20px;
+        }
+
+        .event {
+            display: grid;
+            grid-template-columns: 90px 1fr 80px;
+            padding: 15px 0;
+            border-bottom: 1px solid #182630;
+            font-size: 11px;
+        }
+
+        .event-time {
+            color: #526574;
+        }
+
+        .event-name {
+            color: #b8c7d2;
+        }
+
+        .event-status {
+            text-align: right;
+        }
+
+        .safe {
+            color: #62e6a8;
+        }
+
+        .review {
+            color: #ffc857;
+        }
+
+        /* QUICK ACTIONS */
+
+        .quick-actions {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .action {
+            padding: 18px;
+            background: #080d14;
+            border: 1px solid #1b2c38;
+            text-decoration: none;
+            color: #aebdca;
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        .action:hover {
+            border-color: #00e5ff;
+            color: #00e5ff;
+        }
+
+        footer {
+            padding: 25px 5%;
+            border-top: 1px solid #182630;
+            color: #536676;
+            font-size: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        @media (max-width: 900px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-actions {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 550px) {
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .top-heading {
+                display: block;
+            }
+
+            .scan-status {
+                margin-top: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            🛡️ SENTINEL<span>X</span>
+        </div>
+
+        <div class="nav-links">
+            <a href="dashboard.html">COMMAND CENTER</a>
+            <a href="threats.html">THREATS</a>
+            <a href="network.html">NETWORK</a>
+            <a href="reports.html">REPORTS</a>
+        </div>
+
+        <div class="operator">
+            ● OPERATOR ONLINE
+        </div>
+
+    </nav>
+
+</header>
+
+
+<main>
+
+    <div class="top-heading">
+
+        <div>
+            <div class="terminal">
+                SENTINELX // SOC NODE SX-01
+            </div>
+
+            <h1>Security Command Center</h1>
+        </div>
+
+        <div class="scan-status">
+            ● SYSTEM MONITORING ACTIVE
+        </div>
+
+    </div>
+
+
+    <!-- SECURITY STATS -->
+
+    <section class="stats">
+
+        <div class="stat-card">
+            <small>SECURITY SCORE</small>
+            <h2 class="cyan">94%</h2>
+            <p>Excellent protection</p>
+        </div>
+
+        <div class="stat-card">
+            <small>ACTIVE THREATS</small>
+            <h2 class="green">02</h2>
+            <p>Requires monitoring</p>
+        </div>
+
+        <div class="stat-card">
+            <small>PROTECTED ASSETS</small>
+            <h2>24</h2>
+            <p>All endpoints online</p>
+        </div>
+
+        <div class="stat-card">
+            <small>BLOCKED EVENTS</small>
+            <h2 class="yellow">127</h2>
+            <p>This week</p>
+        </div>
+
+    </section>
+
+
+    <section class="dashboard-grid">
+
+
+        <!-- ACTIVITY PANEL -->
+
+        <div class="panel">
+
+            <div class="panel-header">
+                <h2>Network Activity</h2>
+                <span>LAST 12 HOURS</span>
+            </div>
+
+            <div class="chart">
+
+                <div class="bar" style="height:35%"></div>
+                <div class="bar" style="height:52%"></div>
+                <div class="bar" style="height:43%"></div>
+                <div class="bar" style="height:70%"></div>
+                <div class="bar" style="height:55%"></div>
+                <div class="bar" style="height:82%"></div>
+                <div class="bar" style="height:60%"></div>
+                <div class="bar" style="height:90%"></div>
+                <div class="bar" style="height:65%"></div>
+                <div class="bar" style="height:75%"></div>
+                <div class="bar" style="height:48%"></div>
+                <div class="bar" style="height:88%"></div>
+
+            </div>
+
+            <div class="chart-labels">
+                <span>00:00</span>
+                <span>04:00</span>
+                <span>08:00</span>
+                <span>12:00</span>
+            </div>
+
+        </div>
+
+
+        <!-- SECURITY SCORE -->
+
+        <div class="panel score">
+
+            <div class="panel-header">
+                <h2>Security Score</h2>
+                <span>LIVE</span>
+            </div>
+
+            <div class="score-circle">
+                <strong>94</strong>
+            </div>
+
+            <p>● SYSTEM SECURE</p>
+
+        </div>
+
+    </section>
+
+
+    <!-- SECURITY EVENTS -->
+
+    <section class="panel events">
+
+        <div class="panel-header">
+            <h2>Recent Security Events</h2>
+            <span>LIVE TELEMETRY</span>
+        </div>
+
+
+        <div class="event">
+            <span class="event-time">10:42:18</span>
+            <span class="event-name">Firewall scan completed</span>
+            <span class="event-status safe">SECURE</span>
+        </div>
+
+        <div class="event">
+            <span class="event-time">10:39:04</span>
+            <span class="event-name">Login anomaly detected</span>
+            <span class="event-status review">REVIEW</span>
+        </div>
+
+        <div class="event">
+            <span class="event-time">10:34:51</span>
+            <span class="event-name">Endpoint protection updated</span>
+            <span class="event-status safe">SECURE</span>
+        </div>
+
+        <div class="event">
+            <span class="event-time">10:29:33</span>
+            <span class="event-name">Network vulnerability scan</span>
+            <span class="event-status safe">COMPLETE</span>
+        </div>
+
+    </section>
+
+
+    <!-- QUICK ACTIONS -->
+
+    <section class="quick-actions">
+
+        <a href="alerts.html" class="action">
+            🚨 THREAT ALERTS
+        </a>
+
+        <a href="network.html" class="action">
+            ◉ NETWORK MONITOR
+        </a>
+
+        <a href="reports.html" class="action">
+            ▣ SECURITY REPORTS
+        </a>
+
+        <a href="settings.html" class="action">
+            ⚙ SYSTEM SETTINGS
+        </a>
+
+    </section>
+
+</main>
+<section class="quick-actions">
+
+    <a href="analytics.html" class="action">
+        📊 SECURITY ANALYTICS
+    </a>
+
+    <a href="security-scan.html" class="action">
+        ⛨ SECURITY SCAN
+    </a>
+
+    <a href="scan-results.html" class="action">
+        ▣ SCAN RESULTS
+    </a>
+
+    <a href="assets.html" class="action">
+        ◉ PROTECTED ASSETS
+    </a>
+    <a href="activity-logs.html" class="action">
+    ◈ ACTIVITY LOGS
+</a>
+<a href="notifications.html" class="action">
+    🔔 NOTIFICATIONS
+</a>
+<a href="incidents.html" class="action">
+    ⚠ INCIDENT RESPONSE
+</a>
+<a href="security-tips.html" class="action">
+    🛡 SECURITY TIPS
+</a>
+<a href="profile.html" class="action">
+    ◉ OPERATOR PROFILE
+</a>
+<a href="help.html" class="action">
+    ? HELP & SUPPORT
+</a>
+<a href="admin.html" class="action">
+    ⚙ ADMIN OVERVIEW
+</a>
+
+</section>
+
+
+<footer>
+
+    <span>SENTINELX SECURITY OPERATIONS</span>
+
+    <span>SOC NODE: SX-01 • STATUS: OPERATIONAL</span>
+
+</footer>
+
+</body>
+</html>
